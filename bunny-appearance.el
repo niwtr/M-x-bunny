@@ -3,32 +3,30 @@
 
 ;;; GUI specific features
 (when window-system
-  (set-face-attribute 'default nil
-		      :family ss-font-family
-		      :height ss-font-height
-		      :weight 'normal
-		      :width 'normal)
+  (if (null  (font-info ss-font-family))
+      (warn "Font family not available: %s.
+You need to install the fonts manually." ss-font-family)
+    (set-face-attribute 'default nil
+			:family ss-font-family
+			:height ss-font-height
+			:weight 'normal
+			:width 'normal))
   (if (string-equal system-type "darwin") 
       (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
-  (setq mouse-wheel-scroll-amount '(0.01))
-  (setq mouse-wheel-progressive-speed nil)
-  (setq ring-bell-function 'ignore))
+  (blink-cursor-mode -1))
+
 
 ;;; Terminal-specific features.
 (unless window-system
-  (require 'mouse)
-  (xterm-mouse-mode t)
-  (menu-bar-mode -1)
-  (global-set-key [mouse-4] (lambda () (interactive) (scroll-down 1)))
-  (global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))
-  (defun track-mouse (e))
-  (setq mouse-sel-mode t))
+  (menu-bar-mode -1))
 
-(defadvice load-theme (before theme-dont-propagate activate)
-  (mapc #'disable-theme custom-enabled-themes))
+(fringe-mode 0)
+
+ (defadvice load-theme (before theme-dont-propagate activate)
+   (mapc #'disable-theme custom-enabled-themes))
 
 (when use-zerodark 
   (use-package zerodark-theme
@@ -94,7 +92,12 @@
     :config
     (eshell-git-prompt-use-theme 'powerline)))
 
-(use-package all-the-icons :ensure t)
+(use-package all-the-icons :ensure t
+  :config
+  (unless (font-info "all-the-icons")
+    (warn
+     "Fonts for `all-the-icons` are not available.
+Download the fonts via M-x all-the-icons-install-fonts.")))
 
 ;;; This mode-line requires that projectile and evil is loaded.
 (when use-doom-modeline

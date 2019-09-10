@@ -3,9 +3,8 @@
 (setq ss-repo-directory (concat dotemacs-dotd-path "repo/"))
 (setq ss-snippets-dir (concat dotemacs-dotd-path "snippets/"))
 
-;; for online package repository config
-(setq ss-country 'china)
-
+;; emacs-china, melpa, or all
+(setq ss-package-archives-source 'emacs-china)
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
@@ -28,8 +27,10 @@
 ;; python
 (setq ss-python-env 'default)
 (setq ss-python-system 'lsp)
-(setq ss-ms-pyls-directory
-      "/raid_sdc/home/ntr/python-language-server/output/bin/Release/")
+;; (setq ss-ms-pyls-directory
+;; "/raid_sdc/home/ntr/python-language-server/output/bin/Release/")
+(setq ss-ms-pyls-executable
+      "~/Software/python-language-server/output/bin/Release/osx-x64/publish/Microsoft.Python.LanguageServer")
 
 ;; lisp
 (setq ss-lisp-system nil) ;; slime or sly

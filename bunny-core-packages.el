@@ -1,3 +1,29 @@
+(require 'package)
+(package-initialize)
+;; (require 'rx)
+(setq package-enable-at-startup nil)
+(if (version< emacs-version "27.0")
+    (package-initialize))
+(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+			 ("melpa" . "http://elpa.emacs-china.org/melpa/")
+			 ("org"   . "http://elpa.emacs-china.org/org/")))
+(cond ((eq ss-package-archives-source 'emacs-china) nil)
+      ((eq ss-package-archives-source 'melpa)
+       (setq package-archives '(("melpa" . "https://melpa.org/packages/"))))
+      ((eq ss-package-archives-source 'all)
+       (add-to-list package-archives '("melpa" . "https://melpa.org/packages/")))
+      (t
+       (error "Unsupported package archive source.")))
+
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(unless (package-installed-p 'org)
+  (package-refresh-contents)
+  (package-install 'org))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(add-to-list 'load-path ss-repo-directory)
+
 (use-package aggressive-indent :ensure t
   :config
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
@@ -271,6 +297,7 @@
   :config
   (evil-leader/set-key
     "ha" 'helm-ag))
+
 (defun bunny--helm-filter-buffers (buffer-list)
   (delq nil (mapcar
 	     (lambda (buffer)

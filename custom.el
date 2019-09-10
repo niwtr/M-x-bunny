@@ -23,6 +23,7 @@
  '(fci-rule-color "#56697A" t)
  '(flycheck-error-list-minimum-level 'warning)
  '(golden-ratio-mode nil)
+ '(helm-ff-lynx-style-map t)
  '(ivy-height 20)
  '(jdee-db-active-breakpoint-face-colors (cons "#10151C" "#5EC4FF"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#10151C" "#8BD49C"))
