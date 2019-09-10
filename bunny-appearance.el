@@ -3,21 +3,17 @@
 
 ;;; GUI specific features
 (when window-system
-  (if (null  (font-info ss-font-family))
-      (warn "Font family not available: %s.
-You need to install the fonts manually." ss-font-family)
-    (set-face-attribute 'default nil
-			:family ss-font-family
-			:height ss-font-height
-			:weight 'normal
-			:width 'normal))
+  (set-face-attribute 'default nil
+		      :family ss-font-family
+		      :height ss-font-height
+		      :weight 'normal
+		      :width 'normal)
   (if (string-equal system-type "darwin") 
       (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (blink-cursor-mode -1))
-
 
 ;;; Terminal-specific features.
 (unless window-system
@@ -92,12 +88,7 @@ You need to install the fonts manually." ss-font-family)
     :config
     (eshell-git-prompt-use-theme 'powerline)))
 
-(use-package all-the-icons :ensure t
-  :config
-  (unless (font-info "all-the-icons")
-    (warn
-     "Fonts for `all-the-icons` are not available.
-Download the fonts via M-x all-the-icons-install-fonts.")))
+(use-package all-the-icons :ensure t)
 
 ;;; This mode-line requires that projectile and evil is loaded.
 (when use-doom-modeline
