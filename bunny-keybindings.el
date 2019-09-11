@@ -348,7 +348,7 @@
 
 
 ;;; ---------------------- lang LaTeX -------------------------------
-(when ss-use-tex
+(when ss-use-latex
   (require 'tex)
   (define-minor-mode-leader-keymap 'LaTeX-mode
     ("me" . 'LaTeX-mark-environment)
