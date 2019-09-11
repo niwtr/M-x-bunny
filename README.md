@@ -22,6 +22,6 @@ This is M-x bunny, an Emacs editor configuration for my daily use. It features:
 # Key bindings
 TODO
 # Screenshot
-![M-x bunny on the dark side.](https://raw.githubusercontent.com/niwtr/M-x-bunny/master/screenshot.png)
+![M-x bunny on the dark side.](/screenshot.png)
 # Note
 I'm still working on this configuration, consistently applying it to my daily work. It means, everything in this repository may change. If you find this annoying, please switch to another stable configurations. Personally, I recommend [DOOM Emacs](https://github.com/hlissner/doom-emacs).
