@@ -1,14 +1,20 @@
 (global-hl-line-mode +1)
 (display-time-mode 1) ;; display time at mode line, no effect if use doom-modeline.
+(fringe-mode 0)
 
 ;;; GUI specific features
-(when window-system
+
+(defun bunny-set-emacs-font ()
+  (interactive)
   (set-face-attribute 'default nil
 		      :family ss-font-family
 		      :height ss-font-height
 		      :weight 'normal
-		      :width 'normal)
-  (if (string-equal system-type "darwin") 
+		      :width 'normal))
+
+(when window-system
+  (bunny-set-emacs-font)
+  (if (string-equal system-type "darwin")
       (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
@@ -19,10 +25,28 @@
 (unless window-system
   (menu-bar-mode -1))
 
-(fringe-mode 0)
+(defadvice load-theme (before theme-dont-propagate activate)
+  (mapc #'disable-theme custom-enabled-themes))
 
- (defadvice load-theme (before theme-dont-propagate activate)
-   (mapc #'disable-theme custom-enabled-themes))
+
+(defvar available-ui-themes
+  `(
+    monochrome
+    moe-dark
+    moe-light
+    doom
+    tao-yin
+    tao-yang
+    zerodark
+    green-phosphor
+    dracula
+    leuven
+    ))
+
+(dolist (theme available-ui-themes)
+  (set (intern (concat "use-" (symbol-name theme))) nil))
+(set (intern (concat "use-" (symbol-name ss-ui-theme))) t)
+
 
 (when use-zerodark 
   (use-package zerodark-theme
@@ -31,18 +55,18 @@
     (load-theme 'zerodark t)
     (zerodark-setup-modeline-format)))
 
-(awhen use-moe
+(when (or use-moe-dark use-moe-light)
   (use-package moe-theme :ensure t
     :config
     (moe-theme-set-color 'orange)
-    (if (eq it 'dark)
+    (if use-moe-dark
 	(moe-dark)
       (moe-light))))
 
-(awhen use-tao
+(when (or use-tao-yin use-tao-yang)
   (use-package tao-theme :ensure t
     :config
-    (if (eq it 'yin)
+    (if use-tao-yin 
 	(load-theme 'tao-yin t)
       (load-theme 'tao-yang t))))
 
@@ -51,12 +75,15 @@
     :config
     (load-theme 'green-phosphor t)))
 
-(when use-mono
+(when use-monochrome
   (use-package monochrome-theme :ensure t
     :config
     (load-theme 'monochrome t)))
 
-(use-package dracula-theme :if use-dracula :ensure t :config (load-theme 'dracula t))
+(when use-dracula
+  (use-package dracula-theme
+    :ensure t
+    :config (load-theme 'dracula t)))
 
 (when use-leuven
   (load-theme 'leuven t)

@@ -105,8 +105,6 @@
       ;; for dev build of language server
       (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
       (add-hook 'python-mode-hook 'lsp)
-      ;; (setq lsp-python-ms-dir
-      ;; (expand-file-name ss-ms-pyls-directory))
       (setq lsp-python-ms-executable ss-ms-pyls-executable)))
 
   (when use-lsp-ui

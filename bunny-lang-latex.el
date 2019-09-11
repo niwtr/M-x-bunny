@@ -1,4 +1,4 @@
-(when ss-have-latex
+(when ss-use-latex
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
   (setq-default TeX-master nil)
