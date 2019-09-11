@@ -18,13 +18,6 @@
     (bunny-pyenv-default)
   (bunny-pyenv-set ss-python-env))
 
-(define-minor-mode-leader-keymap 'python-mode :overwrite t
-  ("d" . 'xref-find-definitions)
-  ("o" . 'xref-find-definitions-other-window)
-  ("r" . 'xref-find-references)
-  ("e" . 'python-shell-run)
-  ("c" . 'python-shell-send-buffer))
-
 (use-package ob-ipython :ensure t
   :if use-ob-ipython
   :config
@@ -51,15 +44,7 @@
     :config
     (setq python-shell-remote-exec-path `(,ss-python-remote-exec-path))
     (add-hook 'python-mode-hook 'anaconda-mode)
-    (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
-    (define-minor-mode-leader-keymap 'python-mode :overwrite t
-      ("adc" . 'anaconda-mode-find-definitions)
-      ("adw" . 'anaconda-mode-find-definitions-other-window)
-      ("arc" . 'anaconda-mode-find-references)
-      ("arw" . 'anaconda-mode-find-references-other-window)
-      ("asc" . 'anaconda-mode-find-assignments)
-      ("asw" . 'anaconda-mode-find-assignments-other-window)
-      ("ao" . 'anaconda-mode-show-doc)))
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
   (use-package company-anaconda
     :ensure t
     :commands python-mode
@@ -112,11 +97,7 @@
       :after lsp-python-ms)))
 
 (when use-company-jedi
-  (use-package company-jedi :ensure t
-    :config
-    (define-minor-mode-leader-keymap 'python-mode :overwrite nil
-      ("d" . 'jedi:goto-definition)
-      ("b" . 'jedi:goto-definition-pop-marker)))
+  (use-package company-jedi :ensure t)
   (defun my/python-mode-hook ()
     (add-to-list 'company-backends 'company-jedi))
   (add-hook 'python-mode-hook 'my/python-mode-hook))
@@ -158,19 +139,11 @@
     (set-buffer-modified-p modified)))
 
 (when use-jedi
-  (use-package jedi :ensure t
-    :config
-    (define-minor-mode-leader-keymap 'python-mode :overwrite nil
-      ("sd" . 'jedi:show-doc)
-      ("d" . 'jedi:goto-definition)
-      ("b" . 'jedi:goto-definition-pop-marker)))
+  (use-package jedi :ensure t)
   (add-hook 'python-mode-hook 'jedi:setup)
   (add-hook 'python-mode-hook '(lambda () (interactive) (company-mode -1)))
        ;;; for the evil-mc. which does not work when dot is completed.
   (setq jedi:complete-on-dot nil))
-
-(define-minor-mode-leader-keymap 'python-mode :overwrite nil
-  ("C" . 'python-clear-shell))
 
 (when use-eglot
   (use-package eglot :ensure t :config
@@ -189,8 +162,6 @@
   (use-package yasnippet
     :disabled
     :config
-    (evil-leader/set-key
-      "sy" 'yas-insert-snippet)
     (add-hook 'org-mode-hook 'yas-minor-mode)
     (setq yas-snippet-dirs `(,ss-snippets-dir))))
 

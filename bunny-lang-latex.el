@@ -16,15 +16,7 @@
 	    ("LaTeX" "xelatex -interaction nonstopmode %t" TeX-run-TeX nil
 	     (latex-mode doctex-mode)
 	     :help "Run LaTeX")))
-    (define-minor-mode-leader-keymap 'LaTeX-mode
-      ("me" . 'LaTeX-mark-environment)
-      ("ms" . 'LaTeX-mark-section)
-      ("e" .  'LaTeX-environment)
-      ("c" .  'LaTeX-close-environment)
-      ("ps" . 'preview-section)
-      ("pd" . 'preview-document)
-      ("pr" . 'preview-region)
-      ("pe" . 'preview-environment)))
+    )
   (use-package company-auctex :defer t :ensure t :config
     (add-hook 'latex-mode-hook #'company-auctex-init))
   (use-package academic-phrases :ensure t))

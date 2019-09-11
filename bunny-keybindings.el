@@ -277,4 +277,92 @@
 (evil-global-set-key 'normal (kbd "\\") 'bunny-helm-eshell-finder)
 
 
+
+
+
+;;; --------------------- lang python --------------------------------
+(define-minor-mode-leader-keymap 'python-mode :overwrite t
+  ("d" . 'xref-find-definitions)
+  ("o" . 'xref-find-definitions-other-window)
+  ("r" . 'xref-find-references)
+  ("e" . 'python-shell-run)
+  ("C" . 'python-clear-shell)
+  ("c" . 'python-shell-send-buffer))
+(when use-anaconda
+  (require 'anaconda-mode)
+  (define-minor-mode-leader-keymap 'python-mode :overwrite t
+    ("adc" . 'anaconda-mode-find-definitions)
+    ("adw" . 'anaconda-mode-find-definitions-other-window)
+    ("arc" . 'anaconda-mode-find-references)
+    ("arw" . 'anaconda-mode-find-references-other-window)
+    ("asc" . 'anaconda-mode-find-assignments)
+    ("asw" . 'anaconda-mode-find-assignments-other-window)
+    ("ao" . 'anaconda-mode-show-doc)))
+(when use-company-jedi
+  (require 'company-jedi)
+  (define-minor-mode-leader-keymap 'python-mode :overwrite nil
+    ("d" . 'jedi:goto-definition)
+    ("b" . 'jedi:goto-definition-pop-marker)))
+(when use-jedi
+  (require 'jedi)
+  (define-minor-mode-leader-keymap 'python-mode :overwrite nil
+    ("sd" . 'jedi:show-doc)
+    ("d" . 'jedi:goto-definition)
+    ("b" . 'jedi:goto-definition-pop-marker)))
+
+
+
+
+;;; -------------------- lang lisp ---------------------------------
+(when use-slime
+  (require 'slime)
+  (define-minor-mode-leader-keymap 'lisp-mode
+    ("C" . 'slime-connect)
+    (","  . 'slime-compile-defun)
+    ("ee" . 'slime-eval-defun)
+    ("mo" . 'slime-macroexpand-1)
+    ("mm" . 'slime-macroexpand-all)
+    ("eb" . 'slime-eval-buffer)))
+
+(when use-sly
+  (require 'sly)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "0") 'sly-db-invoke-restart-0)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "1") 'sly-db-invoke-restart-1)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "2") 'sly-db-invoke-restart-2)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "3") 'sly-db-invoke-restart-3)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "4") 'sly-db-invoke-restart-4)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "5") 'sly-db-invoke-restart-5)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "6") 'sly-db-invoke-restart-6)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "7") 'sly-db-invoke-restart-7)
+  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "8") 'sly-db-invoke-restart-8)
+  (define-minor-mode-leader-keymap 'lisp-mode
+    ("1" . 'sly-db-invoke-restart)
+    ("C" . 'sly-connect)
+    (","  . 'sly-compile-defun)
+    ("mo" . 'sly-macroexpand-1)
+    ("mm" . 'sly-macroexpand-all)
+    ("ee" . 'sly-eval-defun)
+    ("eb" . 'sly-eval-buffer)))
+
+
+
+
+;;; ---------------------- lang LaTeX -------------------------------
+(when ss-use-tex
+  (require 'tex)
+  (define-minor-mode-leader-keymap 'LaTeX-mode
+    ("me" . 'LaTeX-mark-environment)
+    ("ms" . 'LaTeX-mark-section)
+    ("e" .  'LaTeX-environment)
+    ("c" .  'LaTeX-close-environment)
+    ("ps" . 'preview-section)
+    ("pd" . 'preview-document)
+    ("pr" . 'preview-region)
+    ("pe" . 'preview-environment)))
+
+
+
+
+;; 
 ;; bunny-keybindings.el ends here.
+
