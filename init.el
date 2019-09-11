@@ -3,7 +3,7 @@
   (interactive)
   (insert-image
    (create-image
-    (concat dotemacs-dotd-path "bunny.png") 'png nil)))
+    (concat dotemacs-dotd-path "/doc/bunny.png") 'png nil)))
 
 
 (setq dotemacs-dotd-path (expand-file-name "~/.emacs.d/"))
