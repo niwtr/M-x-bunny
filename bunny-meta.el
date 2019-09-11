@@ -5,7 +5,7 @@
 ;; appearance
 (setq ss-ui-theme 'dracula)
 
-(setq use-doom-modeline nil)
+(setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)
 
 (setq ss-font-family "Source Code Pro")
