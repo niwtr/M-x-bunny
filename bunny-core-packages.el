@@ -314,14 +314,15 @@
           ("http://www.reddit.com/r/emacs/.rss" emacs))))
 
 (use-package keyfreq :ensure t
-  :config
-  (keyfreq-mode 1)
-  (keyfreq-autosave-mode 1))
+	     :config
+	     (keyfreq-mode 1)
+	     (keyfreq-autosave-mode 1))
 
+(use-package web-server :ensure t)
 
-(use-package bunny-prettify-json-file
-  :config
-  (advice-add 'find-file :around #'prettify-json-file))
+ (use-package bunny-prettify-json-file
+   :config
+   (advice-add 'find-file :around #'prettify-json-file))
 
 (use-package bunny-register-jumper)
 (use-package bunny-sshfs :if use-bunny-sshfs)
