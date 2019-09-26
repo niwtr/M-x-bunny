@@ -1,5 +1,7 @@
-;; (save-lisp-and-die)
+;;; -*- lexical-binding: t; -*-
+
 (require 'web-server)
+(require 'cl)
 
 (defcustom bunny-kill-ring-webserver-port 9001
   "Port for bunny kill ring web server"
@@ -68,14 +70,38 @@ or display plain text when set to 'text."
 	   9090 nil :local local-vec))
     (message "Server started.")))
 
+
 (defun bunny-kill-ring-webserver-start ()
   (interactive)
   (bunny-kill-ring-webserver-stop)
   (condition-case e
       (bunny--kill-ring-webserver-start bunny-kill-ring-webserver-port)
     (file-error
-     ;; TODO ask the user to input another port number.
-     (message "Sever port already used by other process. Please try another port."))))
+     (cl-tagbody
+      prompt
+      (let ((new-port
+	     (string-to-number
+	      (read-string "Sever port already used by other process. Please try another port: "))))
+	(if (< new-port 22)
+	    (progn
+	      (message "Illegal port.")
+	      (sleep-for 1)
+	      (go prompt))
+	  (progn
+	    (condition-case e
+		(bunny--kill-ring-webserver-start new-port)
+	      (file-error
+	       (go prompt))
+	      (error e))
+	    (let ((confirm-save
+		   (y-or-n-p
+		    (format 
+		     "Server started successfully at port %d. Do would you like to save it as default? =>" new-port))))
+	      (when confirm-save
+		(custom-set-variables
+		 (list 'bunny-kill-ring-webserver-port new-port))
+		(custom-save-all))))))))
+    (error e)))
 
 (defun bunny-kill-ring-webserver-stop ()
   (interactive)
@@ -83,5 +109,9 @@ or display plain text when set to 'text."
     (ws-stop bunny--kill-ring-webserver-object)
     (setq bunny--kill-ring-webserver-object nil)
     (message "Shutdwon old kill-ring server.")))
+
+(defun bunny-krws ()
+  (interactive)
+  (bunny-kill-ring-webserver-start))
 
 (provide 'bunny-krws)
