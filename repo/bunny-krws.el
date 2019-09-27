@@ -16,7 +16,6 @@ or display plain text when set to 'text."
 (defvar bunny--kill-ring-webserver-object nil
   "The actual webserver object.")
 
-
 (defun ws-start (handlers port &optional log-buffer &rest network-args)
   "The original ws-start function is incompatible with Emacs 27.0.5. "
   (let ((server (make-instance 'ws-server :handlers handlers :port port))
@@ -46,6 +45,21 @@ or display plain text when set to 'text."
     (push server ws-servers)
     server))
 
+(defvar bunny--kill-ring-webserver-html-header-template
+  "<html><head><title>Kill Ring</title></head><body>%s</body></html>"
+  "Format string of HTML header template.")
+
+(defvar bunny--kill-ring-webserver-plain-header-template
+  "%s"
+  "Format string of plain header template.")
+
+(defvar bunny--kill-ring-webserver-html-template
+  (cons "<hr><xmp>" "</xmp>")
+  "HTML template string.")
+
+(defvar bunny--kill-ring-webserver-plain-template
+  (cons "" "\n##\n")
+  "Plain template string.")
 
 (defun bunny--kill-ring-webserver-start (krws-port)
   (let ((local-vec (vector 0 0 0 0 krws-port)))
@@ -57,16 +71,24 @@ or display plain text when set to 'text."
 				   (list "Content-type"
 					 (if (eq bunny-kill-ring-webserver-type 'html)
 					     "text/html" "text/plain")))
-	       (process-send-string process
-				    (format
-				     (if (eq bunny-kill-ring-webserver-type 'html)
-					 "<html><head><title>Kill Ring</title></head><body>%s</body></html>" "%s")
-				     (with-temp-buffer
-				       (dolist (x kill-ring)
-					 (if (eq bunny-kill-ring-webserver-type 'html)
-					     (insert "<hr><xmp>" x "</xmp>")
-					   (insert x "\n##\n")))
-				       (buffer-string))))))
+	       (process-send-string
+		process
+		(format
+		 (if (eq bunny-kill-ring-webserver-type 'html)
+		     bunny--kill-ring-webserver-html-header-template
+		   bunny--kill-ring-webserver-plain-header-template)
+		 (with-temp-buffer
+		   (dolist (x kill-ring)
+		     (if (eq bunny-kill-ring-webserver-type 'html)
+			 (insert
+			  (car bunny--kill-ring-webserver-html-template)
+			  x
+			  (cdr bunny--kill-ring-webserver-html-template))
+		       (insert
+			(car bunny--kill-ring-webserver-plain-template)
+			x
+			(cdr bunny--kill-ring-webserver-plain-template))))
+		   (buffer-string))))))
 	   9090 nil :local local-vec))
     (message "Server started.")))
 
@@ -77,30 +99,34 @@ or display plain text when set to 'text."
   (condition-case e
       (bunny--kill-ring-webserver-start bunny-kill-ring-webserver-port)
     (file-error
-     (cl-tagbody
-      prompt
-      (let ((new-port
-	     (string-to-number
-	      (read-string "Sever port already used by other process. Please try another port: "))))
-	(if (< new-port 22)
+     (let ((the-port bunny-kill-ring-webserver-port))
+       (cl-tagbody
+	prompt
+	(let ((new-port
+	       (string-to-number
+		(read-string
+		 (format "Sever port %d already used by other process. Please try another port => "
+			 the-port)))))
+	  (if (< new-port 22)
+	      (progn
+		(message "Illegal port.")
+		(sleep-for 1)
+		(go prompt))
 	    (progn
-	      (message "Illegal port.")
-	      (sleep-for 1)
-	      (go prompt))
-	  (progn
-	    (condition-case e
-		(bunny--kill-ring-webserver-start new-port)
-	      (file-error
-	       (go prompt))
-	      (error e))
-	    (let ((confirm-save
-		   (y-or-n-p
-		    (format 
-		     "Server started successfully at port %d. Do would you like to save it as default? =>" new-port))))
-	      (when confirm-save
-		(custom-set-variables
-		 (list 'bunny-kill-ring-webserver-port new-port))
-		(custom-save-all))))))))
+	      (condition-case e
+		  (bunny--kill-ring-webserver-start new-port)
+		(file-error
+		 (setf the-port new-port)
+		 (go prompt))
+		(error e))
+	      (let ((confirm-save
+		     (y-or-n-p
+		      (format 
+		       "Server started successfully at port %d. Do would you like to save it as default? =>" new-port))))
+		(when confirm-save
+		  (custom-set-variables
+		   (list 'bunny-kill-ring-webserver-port new-port))
+		  (custom-save-all)))))))))
     (error e)))
 
 (defun bunny-kill-ring-webserver-stop ()
