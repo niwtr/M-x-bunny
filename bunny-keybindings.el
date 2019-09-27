@@ -269,7 +269,8 @@
 (evil-define-key 'insert 'eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
 (evil-define-key 'visual 'eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
 (evil-leader/set-key
-  "\\" 'bunny-neo-eshell)
+  "\\" 'bunny-neo-eshell
+  "|" 'bunny-eshell-command)
 (evil-define-key 'normal 'eshell-mode-map (kbd "<RET>")
   #'bunny-eshell-commit-last-command)
 (evil-define-key 'normal 'eshell-mode-map (kbd "F")

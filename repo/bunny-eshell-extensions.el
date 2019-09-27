@@ -217,6 +217,19 @@
     (erase-buffer)
     (eshell-send-input)))
 
+(defun bunny-eshell-command (cmd &optional kill-buffer)
+  "Run specific command inside a new eshell."
+  (interactive
+   (list (read-string (format "[%s]$ " default-directory))))
+  (with-current-buffer (bunny-neo-eshell)
+    (goto-char eshell-last-output-end)
+    (insert cmd)
+    (eshell-send-input)
+    (when kill-buffer (kill-this-buffer))))
+
+(defun bunny-gpu nil (interactive) (bunny-eshell-command "gpustat -i" t))
+(defun bunny-htop nil (interactive) (bunny-eshell-command "htop" t))
+
 (provide 'bunny-eshell-extensions)
 
 ;; bunny-eshell-extensions.el ends here.
