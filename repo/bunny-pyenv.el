@@ -44,7 +44,9 @@
 		 (f-parent bunny-pyenv--current-pyenv))
 		(t
 		 default-directory)))))
-  (if (file-exists-p (concat env "/bin/python"))
+  (if (or
+       (file-exists-p (concat env "/bin/python"))
+       (file-exists-p (concat env "/bin/python3")))
       (progn
 	(bunny-pyenv--set-pyenv env)
 	(message "Set PyEnv to: %s" env))
