@@ -113,7 +113,7 @@
 (awhen use-eshell-git-prompt
   (use-package eshell-git-prompt :ensure t
     :config
-    (eshell-git-prompt-use-theme 'powerline)))
+    (eshell-git-prompt-use-theme 'robbyrussell)))
 
 (use-package all-the-icons :ensure t)
 

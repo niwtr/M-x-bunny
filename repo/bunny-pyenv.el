@@ -41,7 +41,7 @@
 	  (cond ((stringp bunny-pyenv--default-search-path)
 		 bunny-env--default-search-path)
 		((stringp bunny-pyenv--current-pyenv)
-		 (f-parent bunny-pyenv--current-pyenv))
+		 (concat (f-parent bunny-pyenv--current-pyenv) "/"))
 		(t
 		 default-directory)))))
   (if (or
