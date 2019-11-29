@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>594524679.37826896</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Destination</key>
+						<string>Variable</string>
+						<key>DestinationVariable</key>
+						<string>KRWS</string>
+						<key>InitialSearch</key>
+						<string>10.108.208.188:9002</string>
+						<key>MacroActionType</key>
+						<string>PromptWithList</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>PromptUID</key>
+						<string>1F1B710A-F890-4B34-BC70-9B1326059289</string>
+						<key>Source</key>
+						<string>Text</string>
+						<key>Text</key>
+						<string>10.108.208.188:9002
+10.108.211.19:9002
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>WindowTitle</key>
+						<string>Bunny-Kill-Ring-Server</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>Window</string>
+						<key>IncludeStdErr</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteShellScript</string>
+						<key>Path</key>
+						<string></string>
+						<key>Source</key>
+						<string>Variable</string>
+						<key>SourceVariable</key>
+						<string>KRWS</string>
+						<key>Text</key>
+						<string>#!/bin/bash
+RADDR=$KMVAR_KRWS
+rclipboard=$(curl $RADDR)
+echo "$rclipboard" | pbcopy
+if [ "$rclipboard" ]
+then
+	echo
+else
+	osascript -e "display notification \"Failed to KR from $RADDR.\" with title \"Bunny-KRWS\"";
+fi
+KMVAR_KRWS="$rclipboard"</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>KRWS</string>
+									<key>VariableConditionType</key>
+									<string>IsNotEmpty</string>
+									<key>VariableValue</key>
+									<string>value</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Paste</string>
+								<key>IsDisclosed</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>CutCopyPaste</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>597850992.37547302</real>
+				<key>ModificationDate</key>
+				<real>597851671.75803304</real>
+				<key>Name</key>
+				<string>KRWS</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>9</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0F3645C7-E16F-4EF9-AE5E-0BBEDBAC97E5</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Global Macro Group</string>
+		<key>ToggleMacroUID</key>
+		<string>80407966-917B-4562-B0F6-401901BAEF8A</string>
+		<key>UID</key>
+		<string>14A46D03-55C3-49D2-B227-FB4F87AE579F</string>
+	</dict>
+</array>
+</plist>

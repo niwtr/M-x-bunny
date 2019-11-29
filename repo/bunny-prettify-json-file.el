@@ -4,7 +4,8 @@
 	     (y-or-n-p "Format this json file? "))
 	(let ((new-buffer (get-buffer-create (concat "prettyfied-" fname)))
 	      (prettified (shell-command-to-string (concat "python -m json.tool " fname))))
-	  (with-current-buffer new-buffer 
+	  (with-current-buffer new-buffer
+	    (setq default-directory (concat (f-parent fname) "/"))
 	    (insert prettified)
 	    (switch-to-buffer (buffer-name new-buffer) t t)))
       (apply old-fn (list fname)))))

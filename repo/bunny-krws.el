@@ -7,10 +7,10 @@
   "Port for bunny kill ring web server"
   :group 'bunny-krws)
 
-(defcustom bunny-kill-ring-webserver-type 'plain
+(defcustom bunny-kill-ring-webserver-type 'GET
   "Type of displayed page. Displays html page with seperators when set to 'html
 or display plain text when set to 'text."
-  :options '(html plain)
+  :options '(html plain GET)
   :group 'bunny-krws)
 
 (defvar bunny--kill-ring-webserver-object nil
@@ -63,35 +63,39 @@ or display plain text when set to 'text."
 
 (defun bunny--kill-ring-webserver-start (krws-port)
   (let ((local-vec (vector 0 0 0 0 krws-port)))
-    (setq bunny--kill-ring-webserver-object 
-	  (ws-start
-	   (lambda (request)
-	     (with-slots (process headers) request
-	       (ws-response-header process 200
-				   (list "Content-type"
-					 (if (eq bunny-kill-ring-webserver-type 'html)
-					     "text/html" "text/plain")))
-	       (process-send-string
-		process
-		(format
-		 (if (eq bunny-kill-ring-webserver-type 'html)
-		     bunny--kill-ring-webserver-html-header-template
-		   bunny--kill-ring-webserver-plain-header-template)
-		 (with-temp-buffer
-		   (dolist (x kill-ring)
-		     (if (eq bunny-kill-ring-webserver-type 'html)
-			 (insert
-			  (car bunny--kill-ring-webserver-html-template)
-			  x
-			  (cdr bunny--kill-ring-webserver-html-template))
-		       (insert
-			(car bunny--kill-ring-webserver-plain-template)
-			x
-			(cdr bunny--kill-ring-webserver-plain-template))))
-		   (buffer-string))))))
-	   9090 nil :local local-vec))
+    (setq bunny--kill-ring-webserver-object
+	  (if (eq bunny-kill-ring-webserver-type 'GET)
+	      (ws-start
+	       '(((:GET . ".*") .
+		  (lambda (request)
+		    (with-slots (process) request
+		      (ws-response-header process 200 '("Content-type" . "text/plain"))
+		      (process-send-string process
+					   (car kill-ring))))))
+	       9090 nil :local local-vec)
+	    (ws-start
+	     (lambda (request)
+	       (with-slots (process headers) request
+		 (ws-response-header process 200
+				     (cons "Content-type"
+					   (if (eq bunny-kill-ring-webserver-type 'html)
+					       "text/html" "text/plain")))
+		 (process-send-string
+		  process
+		  (format
+		   (if (eq bunny-kill-ring-webserver-type 'html)
+		       bunny--kill-ring-webserver-html-header-template
+		     bunny--kill-ring-webserver-plain-header-template)
+		   (with-temp-buffer
+		     (dolist (x kill-ring)
+		       (if (eq bunny-kill-ring-webserver-type 'html)
+			   (insert
+			    (car bunny--kill-ring-webserver-plain-template)
+			    x
+			    (cdr bunny--kill-ring-webserver-plain-template))))
+		     (buffer-string))))))
+	     9090 nil :local local-vec)))
     (message "Server started.")))
-
 
 (defun bunny-kill-ring-webserver-start ()
   (interactive)

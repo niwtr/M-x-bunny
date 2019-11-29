@@ -233,7 +233,26 @@
     nil))
 
 
-(use-package expand-region :ensure t)
+(use-package expand-region :ensure t
+  :config
+  (defconst left-pairs-char-list  '("(" "[" "{"))
+  (defconst right-pairs-char-list '(")" "]" "}"))
+  (defun er/bunny-smart-pair-auto-moving ()
+    (let ((char-at-point (string (char-after))))
+      (cond ((member char-at-point left-pairs-char-list)
+	     (forward-char))
+	    ((member char-at-point right-pairs-char-list)
+	     (backward-char))
+	    (t nil))))
+  (defun er/bunny-mark-inside-quote ()
+    (interactive)
+    (funcall 'er/bunny-smart-pair-auto-moving)
+    (funcall 'er/mark-inside-pairs))
+  (defun er/bunny-mark-outside-quote ()
+    (interactive)
+    (funcall 'er/bunny-smart-pair-auto-moving)
+    (funcall 'er/mark-outside-pairs)))
+
 
 (defun narrow-or-widen-dwim (p)
   (interactive "P")
