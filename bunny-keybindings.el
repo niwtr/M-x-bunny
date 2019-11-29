@@ -106,7 +106,6 @@
 
 ;; helm
 (require 'helm)
-(evil-global-set-key 'normal (kbd "M-o") 'helm-projectile-switch-to-buffer)
 (evil-leader/set-key
   "<SPC>" 'helm-M-x
   "dv" 'describe-variable
@@ -125,9 +124,17 @@
 
 ;; helm-projectile
 (require 'helm-projectile)
+(evil-global-set-key 'normal (kbd "M-o") 'helm-projectile-switch-to-buffer)
 (evil-leader/set-key
+  "ps" 'helm-projectile-switch-project
   "pf" 'helm-projectile-find-file
+  "ppa" 'projectile-add-known-project
+  "ppc" 'projectile-cleanup-known-projects
+  "ppd" 'projectile-remove-known-project
+  "ppC" 'projectile-clear-known-projects
   "pa" 'helm-projectile-ag)
+
+
 
 ;; helm-descbinds
 (require 'helm-descbinds)
@@ -282,6 +289,34 @@
 
 
 ;;; --------------------- lang python --------------------------------
+
+(evil-global-set-key 'normal "ew"  'er/mark-word)
+(evil-global-set-key 'normal "ej"  'er/mark-symbol)
+(evil-global-set-key 'normal "em"  'er/mark-method-call)
+(evil-global-set-key 'normal "ep"  'er/mark-inside-pairs)
+(evil-global-set-key 'normal "eP"  'er/mark-outside-pairs)
+(evil-global-set-key 'normal "eq"  'er/mark-inside-quotes)
+(evil-global-set-key 'normal "ec"  'er/mark-comment)
+(evil-global-set-key 'normal "ew"  'er/mark-word)
+(evil-global-set-key 'normal "ef"  'er/mark-defun)
+(evil-define-key 'normal 'python-mode-map "es" 'er/mark-python-statement)
+(evil-define-key 'normal 'python-mode-map "eb" 'er/mark-python-block)
+
+(defun py-mark-class (&optional arg)
+  "Mark class, take beginning of line positions. 
+
+With ARG \\[universal-argument] or ‘py-mark-decorators’ set to t, decorators are marked too.
+Return beginning and end positions of region, a cons."
+  (interactive "P")
+  (let ((py-mark-decorators (or arg py-mark-decorators))
+        erg)
+    (py--mark-base-bol "class" py-mark-decorators)
+    (exchange-point-and-mark)
+    (when (and py-verbose-p (called-interactively-p 'any)) (message "%s" erg))
+    erg))
+
+
+
 (define-minor-mode-leader-keymap 'python-mode :overwrite t
   ("d" . 'xref-find-definitions)
   ("o" . 'xref-find-definitions-other-window)

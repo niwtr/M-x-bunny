@@ -45,6 +45,7 @@
 
 ;; abbrev config
 (add-hook 'text-mode-hook 'abbrev-mode)
+(add-hook 'text-mode-hook 'auto-fill-mode)
 
 
 ;; bookmarks
