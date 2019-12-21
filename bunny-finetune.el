@@ -10,6 +10,17 @@
 	(bury-buffer)
       ad-do-it)))
 
+(defun kill-this-buffer ()	; not for the menu bar.
+  "Kill the current buffer.
+When called in the minibuffer, get out of the minibuffer
+using `abort-recursive-edit'."
+  (interactive)
+  (cond
+   ((menu-bar-non-minibuffer-window-p)
+    (kill-buffer (current-buffer)))
+   (t
+    (abort-recursive-edit))))
+
 (setq require-final-newline t)
 (setq backup-directory-alist `(("." . ,ss-emacs-save-path)))
 (setq auto-save-file-name-transforms `((".*" ,ss-emacs-save-path t)))

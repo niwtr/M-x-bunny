@@ -339,9 +339,13 @@
 
 (use-package web-server :ensure t)
 
- (use-package bunny-prettify-json-file
-   :config
-   (advice-add 'find-file :around #'prettify-json-file))
+(use-package bunny-prettify-json-file
+  :config
+  (advice-add 'find-file :around #'prettify-json-file))
+
+(use-package bunny-h5ls-h5file
+  :config
+  (advice-add 'find-file :around #'bunny-h5ls-h5file))
 
 (use-package bunny-register-jumper)
 (use-package bunny-sshfs :if use-bunny-sshfs)
