@@ -343,7 +343,7 @@
   :config
   (advice-add 'find-file :around #'prettify-json-file))
 
-(use-package bunny-h5ls-h5file
+(use-package bunny-h5ls
   :config
   (advice-add 'find-file :around #'bunny-h5ls-h5file))
 

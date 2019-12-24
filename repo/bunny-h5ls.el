@@ -9,4 +9,4 @@
 	    (insert lsd)
 	    (switch-to-buffer (buffer-name new-buffer) t t)))
       (apply old-fn (list fname)))))
-(provide 'bunny-h5ls-h5file)
+(provide 'bunny-h5ls)

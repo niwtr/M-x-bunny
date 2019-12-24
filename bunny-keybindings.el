@@ -74,7 +74,7 @@
 (evil-global-set-key 'operator (kbd "z") 'ace-jump-line-mode)
 (evil-global-set-key 'operator (kbd "o") 'ace-jump-word-mode)
 (evil-global-set-key 'visual (kbd "t") 'ace-jump-line-mode)
-(evil-global-set-key 'operator (kbd "t") 'ace-jump-line-mode)
+;; (evil-global-set-key 'operator (kbd "t") 'ace-jump-line-mode)
 (evil-global-set-key 'normal (kbd "z") 'zap-to-char)
 (evil-global-set-key 'normal (kbd "Z") 'zap-up-to-char)
 (evil-global-set-key 'visual (kbd "o") 'ace-jump-word-mode)
@@ -91,7 +91,7 @@
 ;; ace-window
 (require 'ace-window)
 (evil-global-set-key 'normal "t" 'ace-window) ;; set the global key to t.
-(evil-global-set-key 'motion "t" 'ace-window) ;; set the global key to t.
+;; (evil-global-set-key 'motion "t" 'ace-window) ;; set the global key to t.
 (evil-collection-define-key 'normal 'dired-mode-map "t" 'ace-window)
 
 

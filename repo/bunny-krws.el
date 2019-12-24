@@ -95,7 +95,9 @@ or display plain text when set to 'text."
 			    (cdr bunny--kill-ring-webserver-plain-template))))
 		     (buffer-string))))))
 	     9090 nil :local local-vec)))
-    (message "Server started.")))
+    (message (format "Server started, port %d, type %s."
+		     krws-port
+		     bunny-kill-ring-webserver-type))))
 
 (defun bunny-kill-ring-webserver-start ()
   (interactive)
