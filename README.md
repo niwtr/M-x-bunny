@@ -14,14 +14,12 @@ This is M-x bunny, an Emacs editor configuration for my daily use. It features:
 4. Clone this repo
 	```bash
 	cd ~
-	# you may need to delete your .emacs.d directory if exists.
-	‌https://github.com/niwtr/M-x-bunny.git .emacs.d
+	# you may need to delete your `.emacs.d` directory if exists.
+	‌git clone https://github.com/niwtr/M-x-bunny.git .config/emacs
 	```
 5. Open `bunny-meta.el`, change the `ss-shell-path` to your default path to your shell, and (optional) the ` ss-ms-pyls-executable` to your installed Microsoft Language Server.
 6. Make sure you are connected to internet. Open your Emacs and wait for the package installation finishes.
 7. Press `<SPC><SPC>`, search for `all-the-icons-install-fonts` to install the required fonts.
-# Key bindings
-TODO
 # Screenshot
 ![M-x bunny on the dark side.](doc/screenshot.png)
 # Note

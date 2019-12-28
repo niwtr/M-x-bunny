@@ -14,8 +14,7 @@
 ;; python
 (setq ss-python-env 'default)
 (setq ss-python-system 'lsp)
-(setq ss-ms-pyls-executable
-      "/usr/local/bin/Microsoft.Python.LanguageServer")
+(setq ss-ms-pyls-executable 'default)
 
 ;; lisp
 (setq ss-lisp-system nil) ;; slime or sly or nil

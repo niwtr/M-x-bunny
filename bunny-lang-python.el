@@ -90,7 +90,10 @@
       ;; for dev build of language server
       (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
       (add-hook 'python-mode-hook 'lsp)
-      (setq lsp-python-ms-executable ss-ms-pyls-executable)))
+      (setq lsp-python-ms-executable 
+	    (if (eq ss-ms-pyls-executable 'default)
+		(locate-file "Microsoft.Python.LanguageServer" exec-path)
+	      ss-ms-pyls-executable))))
 
   (when use-lsp-ui
     (use-package lsp-ui :ensure t
