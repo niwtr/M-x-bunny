@@ -4,7 +4,7 @@
 
 ;; evil
 (setq evil-toggle-key "C-z")
-(define-key evil-normal-state-map "/" 'swiper)
+(define-key evil-normal-state-map "/" 'counsel-grep-or-swiper)
 (define-key evil-normal-state-map (kbd "<tab>") 'evil-indent-line)
 (define-key evil-normal-state-map (kbd "TAB") 'evil-indent-line)
 (define-key evil-normal-state-map (kbd "C-f") 'scroll-down-10)

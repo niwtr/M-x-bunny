@@ -159,17 +159,22 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0 :color "blue")))))))
 
 (use-package ivy :ensure t)
-(use-package counsel :ensure t)
+
+(use-package counsel :ensure t
+  :config
+  (when (locate-file "rg" exec-path)
+    ;;; then use ripgrep.
+    (setq counsel-grep-base-command
+	  "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
+
 (use-package swiper
   :ensure t
-  ;; :bind (("C-s" . swiper)
-  ;; 	 ("C-x C-f" . counsel-find-file))
   :config
   (defun bunny-swiper-at-point (st ed)
     (interactive "r")
     (if (use-region-p)
-	(swiper (buffer-substring st ed))
-      (swiper (thing-at-point 'symbol)))))
+	(counsel-grep-or-swiper (buffer-substring st ed))
+      (counsel-grep-or-swiper (thing-at-point 'symbol)))))
 
 ;;; helm
 (use-package helm
