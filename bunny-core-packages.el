@@ -162,13 +162,14 @@
 (use-package counsel :ensure t)
 (use-package swiper
   :ensure t
-  :bind (("C-s" . swiper)
-	 ("C-x C-f" . counsel-find-file))
+  ;; :bind (("C-s" . swiper)
+  ;; 	 ("C-x C-f" . counsel-find-file))
   :config
-  (defun bunny-swiper-at-point (sym)
-    "Use `swiper' to search for the `sym' at point."
-    (interactive (list (thing-at-point 'symbol)))
-    (swiper sym)))
+  (defun bunny-swiper-at-point (st ed)
+    (interactive "r")
+    (if (use-region-p)
+	(swiper (buffer-substring st ed))
+      (swiper (thing-at-point 'symbol)))))
 
 ;;; helm
 (use-package helm
@@ -388,3 +389,4 @@
 (use-package bunny-company-simple-complete)
 ;; package for viewing clipboard from the remote server.
 (use-package bunny-krws)
+(use-package bunny-insert-surroundings)

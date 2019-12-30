@@ -98,6 +98,7 @@
 ;; swiper
 (require 'swiper)
 (evil-global-set-key 'normal (kbd "?") 'bunny-swiper-at-point)
+(evil-global-set-key 'visual (kbd "?") 'bunny-swiper-at-point)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 (define-key swiper-map (kbd "?") 'swiper-avy)
@@ -285,7 +286,14 @@
 (evil-global-set-key 'normal (kbd "\\") 'bunny-helm-eshell-finder)
 
 
-
+(require 'bunny-insert-surroundings)
+(evil-leader/set-key
+  "i(" 'bunny-insert-surroundings-paren
+  "i[" 'bunny-insert-surroundings-bracket
+  "i{" 'bunny-insert-surroundings-fancy-bracket
+  "i'" 'bunny-insert-surroundings-quote
+  "ii" 'bunny-insert-surroundings
+  "i\"" 'bunny-insert-surroundings-biquote)
 
 
 ;;; --------------------- lang python --------------------------------

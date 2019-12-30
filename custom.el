@@ -8,11 +8,13 @@
    ["#E8E8E8" "#3C3C3C" "#616161" "#0E0E0E" "#252525" "#3C3C3C" "#171717" "#0E0E0E"])
  '(beacon-color 0)
  '(beacon-size 10)
+ '(bunny-kill-ring-webserver-port 9002)
+ '(bunny-kill-ring-webserver-type 'GET)
+ '(column-number-mode t)
  '(company-backends
-   '((company-anaconda :with company-capf)
-     company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-     (company-dabbrev-code company-gtags company-etags company-keywords)
-     company-oddmuse company-dabbrev))
+   '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+		  (company-dabbrev-code company-gtags company-etags company-keywords)
+		  company-oddmuse company-dabbrev))
  '(company-lsp-enable-recompletion t)
  '(company-lsp-enable-snippet nil)
  '(custom-safe-themes
@@ -41,10 +43,10 @@
  '(lsp-ui-peek-enable t)
  '(lsp-ui-sideline-enable t)
  '(package-selected-packages
-   '(evil-smartparens company-insert-selected company-jedi ggtags auto-complete flycheck json-mode buffer-expose lispyville lentic forge parrot flymake-diagnostic-at-point annotate cyberpunk-theme ranger symbol-overlay keyfreq eyebrowse expand-region god-mode gruvbox-theme ob-ipython ace-jump-zap evil-terminal-cursor-changer evil-org htmlize color-theme-approximate ivy swiper beacon ace-jump-mode zone-rainbow evil-vimish-fold linum-relative org-download writeroom-mode typing-game evil-goggles tao-theme quasi-monochrome-theme minimal-theme monochrome-theme evil-mc iedit smartscan evil-collection workgroups realgud yaml-mode elfeed ycm dracula-theme markdown-mode+ symon latex-pretty-symbols macrostep academic-phrases company-statistics dashboard multi-term golden-ratio company-anaconda anaconda-mode airline-themes powerline-evil doom-themes neotree helm projectile evil ace-jump-buffer replace-pairs which-key try use-package))
+   '(realgud-ipdb dap-mode evil-smartparens company-insert-selected company-jedi ggtags auto-complete flycheck json-mode buffer-expose lispyville lentic forge parrot flymake-diagnostic-at-point annotate cyberpunk-theme ranger symbol-overlay keyfreq eyebrowse expand-region god-mode gruvbox-theme ob-ipython ace-jump-zap evil-terminal-cursor-changer evil-org htmlize color-theme-approximate ivy swiper beacon ace-jump-mode zone-rainbow evil-vimish-fold linum-relative org-download writeroom-mode typing-game evil-goggles tao-theme quasi-monochrome-theme minimal-theme monochrome-theme evil-mc iedit smartscan evil-collection workgroups realgud yaml-mode elfeed ycm dracula-theme markdown-mode+ symon latex-pretty-symbols macrostep academic-phrases company-statistics dashboard multi-term golden-ratio company-anaconda anaconda-mode airline-themes powerline-evil doom-themes neotree helm projectile evil ace-jump-buffer replace-pairs which-key try use-package))
  '(pdf-tools-handle-upgrades nil)
  '(pdf-view-midnight-colors '("#ffffff" . "#222222"))
- '(pixel-scroll-mode nil)
+ '(pixel-scroll-mode t)
  '(pyim-dicts '((:name "pyim-bigdict" :file ss-bigdict-path)))
  '(pyim-page-length 8)
  '(tool-bar-mode nil)
