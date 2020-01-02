@@ -94,7 +94,9 @@
 		       ((evil-visual-state-p) '("#ffffd7" . "#ffffff"))
 		       ((evil-emacs-state-p)  '("#ffd7ff" . "#ffffff")))))
       (set-face-background 'hl-line (car color))))
-  (add-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme))
+  (add-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme)
+  (defadvice load-theme (before theme-dont-propagate activate)
+    (remove-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme)))
 
 (when use-doom
   (use-package doom-themes

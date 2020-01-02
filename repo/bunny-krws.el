@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 (require 'web-server)
-(require 'cl)
+(require 'cl-lib)
 
 (defcustom bunny-kill-ring-webserver-port 9001
   "Port for bunny kill ring web server"

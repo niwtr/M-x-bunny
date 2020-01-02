@@ -9,3 +9,19 @@
 
 # Undo-tree save-files
 *.~undo-tree
+
+# personal paths
+projectile-bookmarks.eld
+
+# temp files
+\#\!*
+.lsp-session*
+company-statistics-cache.el
+
+# irrelevant folders
+emacs.saves/
+eshell/
+transient/
+.cache
+elpa/
+

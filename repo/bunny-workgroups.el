@@ -52,7 +52,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(require 'cl-lib)
 
 
 ;;; consts

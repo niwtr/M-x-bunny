@@ -234,6 +234,8 @@
 
 
 (define-minor-mode-leader-keymap 'emacs-lisp-mode
+  ("d" . 'xref-find-definitions)
+  ("r" . 'xref-find-references)
   ("e" . 'eval-defun)
   ("m" . 'emacs-lisp-macroexpand))
 (use-minor-mode-leader-keymap 'lisp-interaction-mode 'emacs-lisp-mode)

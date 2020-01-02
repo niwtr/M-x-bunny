@@ -100,6 +100,10 @@
   :ensure t
   :config
   (evil-collection-init 'neotree)
+  (evil-collection-init 'xref)
+  (evil-collection-define-key 'normal 'xref--xref-buffer-mode-map
+    "n" 'xref-next-line
+    "p" 'xref-prev-line)
   (evil-collection-init 'dired))
 
 (use-package evil-matchit
@@ -118,11 +122,17 @@
       (next-line)
       (backward-char))))
 
+
 (use-package which-key :ensure t :config (which-key-mode))
 
 (use-package shrink-path :ensure t)
 
-(use-package projectile :ensure t)
+(use-package projectile :ensure t
+  :config
+  (projectile-load-known-projects)
+  (advice-add 'projectile-add-known-project :after
+	      (lambda (arg)
+		(projectile-save-known-projects))))
 
 
 (use-package neotree
