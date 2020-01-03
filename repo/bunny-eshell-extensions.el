@@ -194,6 +194,14 @@
     (insert hlist)
     (eshell-send-input)))
 
+(defun bunny-eshell-maybe-commit-last ()
+  (interactive)
+  (save-excursion 
+    (goto-char eshell-last-output-end)
+    (if (string-empty-p (buffer-substring (point) (line-end-position)))
+	(bunny-eshell-commit-last-command)
+      (eshell-send-input))))
+
 (defun bunny-eshell-goto-input-line-and-insert ()
   (interactive)
   (goto-char eshell-last-output-end)

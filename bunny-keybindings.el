@@ -282,11 +282,17 @@
   "\\" 'bunny-neo-eshell
   "|" 'bunny-eshell-command)
 (evil-define-key 'normal 'eshell-mode-map (kbd "<RET>")
-  #'bunny-eshell-commit-last-command)
+  #'bunny-eshell-maybe-commit-last)
 (evil-define-key 'normal 'eshell-mode-map (kbd "F")
   #'bunny-eshell-goto-input-line-and-insert)
 (evil-global-set-key 'normal (kbd "\\") 'bunny-helm-eshell-finder)
-
+(define-minor-mode-leader-keymap 'eshell-mode :overwrite t
+  ("c" . 'eshell-clear)
+  ("i" . 'eshell-interrupt-process)
+  ("," . (lambda ()
+	   (interactive)
+	   (eshell-interrupt-process)
+	   (bunny-eshell-goto-input-line-and-insert))))
 
 (require 'bunny-insert-surroundings)
 (evil-leader/set-key

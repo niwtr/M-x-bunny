@@ -403,5 +403,5 @@
 	      (eshell/alias "d" "dired $1"))))
 (use-package bunny-company-simple-complete)
 ;; package for viewing clipboard from the remote server.
-(use-package bunny-krws)
+(use-package bunny-krws :config (bunny-krws))
 (use-package bunny-insert-surroundings)
