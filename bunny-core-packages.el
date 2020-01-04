@@ -1,9 +1,6 @@
 (require 'package)
 (package-initialize)
 ;; (require 'rx)
-(setq package-enable-at-startup nil)
-(if (version< emacs-version "27.0")
-    (package-initialize))
 (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
 			 ("melpa" . "http://elpa.emacs-china.org/melpa/")
 			 ("org"   . "http://elpa.emacs-china.org/org/")))
@@ -403,5 +400,5 @@
 	      (eshell/alias "d" "dired $1"))))
 (use-package bunny-company-simple-complete)
 ;; package for viewing clipboard from the remote server.
-(use-package bunny-krws :config (bunny-krws))
+(use-package bunny-krws)
 (use-package bunny-insert-surroundings)

@@ -272,19 +272,23 @@
 
 ;; bunny-eshell-extensions
 (require 'bunny-eshell-extensions)
-(evil-define-key 'normal 'eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
-(evil-define-key 'insert 'eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
-(evil-define-key 'visual 'eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
-(evil-define-key 'normal 'eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
-(evil-define-key 'insert 'eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
-(evil-define-key 'visual 'eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
+(evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
+(evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
+(evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
+(evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
+(evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
+(evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
 (evil-leader/set-key
   "\\" 'bunny-neo-eshell
   "|" 'bunny-eshell-command)
-(evil-define-key 'normal 'eshell-mode-map (kbd "<RET>")
+
+(evil-define-key 'normal eshell-mode-map (kbd "<RET>")
   #'bunny-eshell-maybe-commit-last)
-(evil-define-key 'normal 'eshell-mode-map (kbd "F")
+(evil-define-key 'normal eshell-mode-map (kbd "F")
   #'bunny-eshell-goto-input-line-and-insert)
+
+
+
 (evil-global-set-key 'normal (kbd "\\") 'bunny-helm-eshell-finder)
 (define-minor-mode-leader-keymap 'eshell-mode :overwrite t
   ("c" . 'eshell-clear)
@@ -322,8 +326,8 @@
 (evil-global-set-key 'normal "ec"  'er/mark-comment)
 (evil-global-set-key 'normal "ew"  'er/mark-word)
 (evil-global-set-key 'normal "ef"  'er/mark-defun)
-(evil-define-key 'normal 'python-mode-map "es" 'er/mark-python-statement)
-(evil-define-key 'normal 'python-mode-map "eb" 'er/mark-python-block)
+(evil-define-key 'normal python-mode-map "es" 'er/mark-python-statement)
+(evil-define-key 'normal python-mode-map "eb" 'er/mark-python-block)
 
 (define-minor-mode-leader-keymap 'python-mode :overwrite t
   ("d" . 'xref-find-definitions)
@@ -370,15 +374,15 @@
 
 (when use-sly
   (require 'sly)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "0") 'sly-db-invoke-restart-0)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "1") 'sly-db-invoke-restart-1)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "2") 'sly-db-invoke-restart-2)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "3") 'sly-db-invoke-restart-3)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "4") 'sly-db-invoke-restart-4)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "5") 'sly-db-invoke-restart-5)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "6") 'sly-db-invoke-restart-6)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "7") 'sly-db-invoke-restart-7)
-  (evil-define-key 'normal 'sly-mrepl-mode-map (kbd "8") 'sly-db-invoke-restart-8)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "0") 'sly-db-invoke-restart-0)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "1") 'sly-db-invoke-restart-1)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "2") 'sly-db-invoke-restart-2)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "3") 'sly-db-invoke-restart-3)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "4") 'sly-db-invoke-restart-4)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "5") 'sly-db-invoke-restart-5)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "6") 'sly-db-invoke-restart-6)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "7") 'sly-db-invoke-restart-7)
+  (evil-define-key 'normal sly-mrepl-mode-map (kbd "8") 'sly-db-invoke-restart-8)
   (define-minor-mode-leader-keymap 'lisp-mode
     ("1" . 'sly-db-invoke-restart)
     ("C" . 'sly-connect)
