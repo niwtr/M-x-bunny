@@ -17,7 +17,7 @@
 
 (setq require-final-newline t)
 (setq backup-directory-alist `(("." . ,ss-emacs-save-path)))
-(setq auto-save-file-name-transforms `((".*" ,ss-emacs-save-path t)))
+(setq auto-save-file-name-transforms `((".*" ,(file-name-as-directory ss-emacs-save-path) t)))
 (setq undo-tree-history-directory-alist `((".*" . ,ss-emacs-save-path)))
 (setq undo-tree-auto-save-history t)
 

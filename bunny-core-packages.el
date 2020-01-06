@@ -1,6 +1,5 @@
 (require 'package)
 (package-initialize)
-;; (require 'rx)
 (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
 			 ("melpa" . "http://elpa.emacs-china.org/melpa/")
 			 ("org"   . "http://elpa.emacs-china.org/org/")))

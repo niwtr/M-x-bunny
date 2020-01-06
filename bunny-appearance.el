@@ -31,6 +31,7 @@
 
 (defvar available-ui-themes
   `(
+    default-emacs-theme
     monochrome
     moe-dark
     moe-light
@@ -47,6 +48,10 @@
   (set (intern (concat "use-" (symbol-name theme))) nil))
 (set (intern (concat "use-" (symbol-name ss-ui-theme))) t)
 
+(when use-default-emacs-theme
+  (while custom-enabled-themes
+    (disable-theme (car custom-enabled-themes)))
+  (global-hl-line-mode -1))
 
 (when use-zerodark 
   (use-package zerodark-theme
@@ -85,14 +90,15 @@
     :ensure t
     :config (load-theme 'dracula t)))
 
-(when use-leuven
+(when use-leuven 
   (load-theme 'leuven t)
   (defun bunny-set-hl-line-for-lighter-theme ()
-    (let ((color (cond ((evil-motion-state-p) '("#d7d7ff" . "#ffffff"))
-		       ((evil-insert-state-p) '("#ffffff" . "#ffffff"))
-		       ((evil-normal-state-p) '("#d7ffd7" . "#ffffff"))
-		       ((evil-visual-state-p) '("#ffffd7" . "#ffffff"))
-		       ((evil-emacs-state-p)  '("#ffd7ff" . "#ffffff")))))
+    (let ((color
+	   (cond ((evil-motion-state-p) '("#d7d7ff" . "#ffffff"))
+		 ((evil-insert-state-p) '("#ffffff" . "#ffffff"))
+		 ((evil-normal-state-p) '("#d7ffd7" . "#ffffff"))
+		 ((evil-visual-state-p) '("#ffffd7" . "#ffffff"))
+		 ((evil-emacs-state-p)  '("#ffd7ff" . "#ffffff")))))
       (set-face-background 'hl-line (car color))))
   (add-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme)
   (defadvice load-theme (before theme-dont-propagate activate)
