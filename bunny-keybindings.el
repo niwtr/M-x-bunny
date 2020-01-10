@@ -272,12 +272,12 @@
 
 ;; bunny-eshell-extensions
 (require 'bunny-eshell-extensions)
-(evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
-(evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
-(evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next)
-(evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
-(evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
-(evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev)
+(evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+(evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+(evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+(evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+(evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+(evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
 (evil-leader/set-key
   "\\" 'bunny-neo-eshell
   "|" 'bunny-eshell-command)

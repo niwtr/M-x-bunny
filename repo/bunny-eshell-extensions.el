@@ -12,22 +12,24 @@
 	(string-to-number (substring string st ed)))
     0))
 
-(defun bunny--list-eshells ()
-  (sort 
-   (remove-if-not (lambda (buf)
-		    (eq 'eshell-mode
-			(with-current-buffer buf
-			  major-mode)))
-		  (buffer-list))
+(defun bunny--list-eshells (&optional aux-preds)
+  (cond ((null aux-preds) (setq aux-preds (list #'identity)))
+	((eq (car aux-preds) 'lambda) (setq aux-preds (list aux-preds)))
+	(t
+	 (setq aux-preds (list aux-preds))))
+  (sort
+   (let ((filtered (remove-if-not (lambda (buf) (eq 'eshell-mode (with-current-buffer buf major-mode))) (buffer-list))))
+     (dolist (pred aux-preds filtered)
+       (setq filtered (remove-if-not pred filtered))))
    (lambda (b1 b2)
      (< (bunny--fuzzy-stoi (buffer-name b1))
 	(bunny--fuzzy-stoi (buffer-name b2))))))
 
-(defun make-eshell-buffer-switcher (nth)
-  (lexical-let ((n nth))
+(defun make-eshell-buffer-switcher (nth eshell-list)
+  (lexical-let ((n nth) (eshell-list eshell-list))
     (lambda nil
       (interactive)
-      (setq buffer-to (nth n (bunny--list-eshells)))
+      (setq buffer-to (nth n eshell-list))
       (if (null buffer-to)
 	  (message "No such eshell buffer.")
 	(switch-to-buffer buffer-to)))))
@@ -35,11 +37,10 @@
 (defun bunny-eshell-manager-clear-current nil
   (setf bunny-eshell-manager-current 0))
 
-(defun bunny--eshell-manager-current-funcall (fn)
+(defun bunny--eshell-manager-current-funcall (fn eshell-list)
   (setf bunny-eshell-manager-current (funcall fn bunny-eshell-manager-current))
   ;; (message "funcall, current %d" bunny-eshell-manager-current)
-  ;; (sleep-for 1)
-  (let ((neshells (length (bunny--list-eshells))))
+  (let ((neshells (length eshell-list)))
     (cond ((>= bunny-eshell-manager-current neshells)
 	   (bunny-eshell-manager-clear-current))
 	  ;; (message "cleared, current %d" bunny-eshell-manager-current))
@@ -57,9 +58,9 @@
   (bunny--eshell-manager-current-funcall #'1-)
   (funcall (make-eshell-buffer-switcher bunny-eshell-manager-current)))
 
-(defun bunny-eshell-do (fn)
+(defun bunny-eshell-do (fn &optional aux-preds)
   (let* ((sname (buffer-name (current-buffer)))
-	 (sbuffers (bunny--list-eshells))
+	 (sbuffers (bunny--list-eshells aux-preds))
 	 (sbuffer-names (mapcar (lambda (x) (buffer-name x)) sbuffers))
 	 (aim-pos (position sname sbuffer-names :test #'equal)))
     (if (null aim-pos)
@@ -68,23 +69,42 @@
 	  (message "You are not in a eshell buffer. Switching to the first one.")
 	  (funcall (make-eshell-buffer-switcher 0)))
       (setf bunny-eshell-manager-current aim-pos)
-      (bunny--eshell-manager-current-funcall fn)
-      (funcall (make-eshell-buffer-switcher bunny-eshell-manager-current)))))
+      (bunny--eshell-manager-current-funcall fn sbuffers)
+      (funcall (make-eshell-buffer-switcher bunny-eshell-manager-current sbuffers)))))
 
+(defcustom bunny-eshell-prevnext-within-project t
+  "When set to t, only switch to eshells within the same project of current eshell.")
 
 (defun bunny-eshell-next nil
   (interactive)
   (bunny-eshell-do #'1+))
+
+(defun bunny-eshell-next-within-project nil
+  (interactive)
+  (bunny-eshell-do
+   #'1+
+   (when bunny-eshell-prevnext-within-project
+     (lambda (buf)
+       (string-equal (projectile-project-root)
+		     (with-current-buffer buf (projectile-project-root)))))))
+
 (defun bunny-eshell-prev nil
   (interactive)
   (bunny-eshell-do #'1-))
 
-(defun bunny-goto-first-eshell ()
+(defun bunny-eshell-prev-within-project nil
   (interactive)
-  (let ((esbuf (bunny--list-eshells)))
-    (when esbuf
-      (switch-to-buffer (car esbuf)))))
+  (bunny-eshell-do
+   #'1-
+   (when bunny-eshell-prevnext-within-project
+     (lambda (buf)
+       (string-equal (projectile-project-root)
+		     (with-current-buffer buf (projectile-project-root)))))))
 
+
+;; (defun bunny-eshell-pre-nil
+;;     (interactive)
+;;   (bunny-eshell-do #'1-))
 
 
 ;; (defun eshell-manager-switch-to-1st-eshell nil
