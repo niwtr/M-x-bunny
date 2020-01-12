@@ -2,6 +2,8 @@
 (display-time-mode 1) ;; display time at mode line, no effect if use doom-modeline.
 (fringe-mode 0)
 
+(add-to-list 'custom-theme-load-path ss-theme-directory)
+
 ;;; GUI specific features
 
 (defun bunny-set-emacs-font ()
@@ -32,6 +34,7 @@
 (defvar available-ui-themes
   `(
     default-emacs-theme
+    default-emacs-black-theme
     monochrome
     moe-dark
     moe-light
@@ -52,6 +55,9 @@
   (while custom-enabled-themes
     (disable-theme (car custom-enabled-themes)))
   (global-hl-line-mode -1))
+
+(when use-default-emacs-black-theme
+  (load-theme 'default-black t))
 
 (when use-zerodark 
   (use-package zerodark-theme

@@ -91,7 +91,7 @@
 ;; ace-window
 (require 'ace-window)
 (evil-global-set-key 'normal "t" 'ace-window) ;; set the global key to t.
-;; (evil-global-set-key 'motion "t" 'ace-window) ;; set the global key to t.
+(evil-global-set-key 'motion "t" 'ace-window) ;; set the global key to t.
 (evil-collection-define-key 'normal 'dired-mode-map "t" 'ace-window)
 
 
@@ -121,6 +121,7 @@
 (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
 (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
 (define-key helm-map (kbd "<escape>") 'keyboard-escape-quit)
+(customize-set-variable 'helm-ff-lynx-style-map nil)
 
 
 ;; helm-projectile
@@ -133,18 +134,19 @@
   "ppc" 'projectile-cleanup-known-projects
   "ppd" 'projectile-remove-known-project
   "ppC" 'projectile-clear-known-projects
-  "pa" 'helm-projectile-ag)
-
-
+  "pa" (cond ((locate-file "rg" exec-path) 'helm-projectile-rg)
+	     ((locate-file "ag" exec-path) 'helm-projectile-ag)
+	     ((locate-file "ack" exec-path) 'helm-projectile-ack)
+	     (t
+	      (defun helm-projectile-ag-dummy ()
+		(interactive)
+		(message
+		 "You don't have rg, ag or ack installed in your computer. Install them first."))
+	      'helm-projectile-ag-dummy)))
 
 ;; helm-descbinds
 (require 'helm-descbinds)
 (evil-leader/set-key "db" 'helm-descbinds)
-
-;; helm-ag
-(require 'helm-ag)
-(evil-leader/set-key
-  "ha" 'helm-ag)
 
 ;; dired
 (evil-collection-define-key 'normal

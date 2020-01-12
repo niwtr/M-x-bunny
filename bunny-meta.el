@@ -3,7 +3,7 @@
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
-(setq ss-ui-theme 'leuven)
+(setq ss-ui-theme 'default-emacs-black-theme)
 
 (setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)
@@ -38,4 +38,5 @@
 (setq ss-emacs-save-path (concat dotemacs-dotd-path "emacs.saves"))
 (setq ss-custom-file (concat dotemacs-dotd-path "custom.el"))
 (setq ss-repo-directory (concat dotemacs-dotd-path "repo/"))
+(setq ss-theme-directory (concat dotemacs-dotd-path "repo/bunny-themes"))
 (setq ss-snippets-dir (concat dotemacs-dotd-path "snippets/"))

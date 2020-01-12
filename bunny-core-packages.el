@@ -130,7 +130,6 @@
 	      (lambda (arg)
 		(projectile-save-known-projects))))
 
-
 (use-package neotree
   :ensure t
   :config
@@ -197,8 +196,7 @@
 	      ("M-H" . helm-end-of-buffer))
   :config
   (setq helm-buffers-fuzzy-matching t)
-  (helm-mode 1)
-  (customize-set-variable 'helm-ff-lynx-style-map t))
+  (helm-mode 1))
 
 (use-package helm-projectile
   :ensure t
@@ -206,8 +204,6 @@
   (helm-projectile-on))
 
 (use-package helm-descbinds :ensure t)
-
-(use-package helm-ag :ensure t)
 
 (defun bunny--helm-filter-buffers (buffer-list)
   (delq nil (mapcar
