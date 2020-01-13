@@ -14,9 +14,15 @@
 
 ;;; the very first python minor mode binding.
 (require 'bunny-pyenv)
-(if (eq ss-python-env 'default)
-    (bunny-pyenv-default)
-  (bunny-pyenv-set ss-python-env))
+(cond ((eq ss-python-env 'default) (bunny-pyenv-default))
+      ((symbolp ss-python-env)
+       (bunny-pyenv-set
+	(f-join
+	 (f-parent bunny-pyenv--default-pyenv)
+	 (symbol-name ss-python-env))))
+      (t
+       (bunny-pyenv-set ss-python-env)))
+
 
 (use-package ob-ipython :ensure t
   :if use-ob-ipython

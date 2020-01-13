@@ -57,7 +57,10 @@
   (global-hl-line-mode -1))
 
 (when use-default-emacs-black-theme
-  (load-theme 'default-black t))
+  (load-theme 'default-black t)
+  (set-face-background 'vertical-border nil)
+  (set-face-foreground 'vertical-border "black")
+  (set-face-background 'iedit-occurrence "#696969"))
 
 (when use-zerodark 
   (use-package zerodark-theme

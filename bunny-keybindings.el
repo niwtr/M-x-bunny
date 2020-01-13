@@ -157,6 +157,9 @@
   'dired-mode-map "Q" '(lambda (&optional arg)
 			 (interactive)
 			 (kill-this-buffer)))
+(require 'dired-subtree)
+(evil-collection-define-key 'normal
+  'dired-mode-map (kbd "TAB") 'dired-subtree-toggle)
 
 ;; transpose-frame
 (require 'transpose-frame)

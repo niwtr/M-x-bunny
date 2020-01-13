@@ -64,6 +64,18 @@
 (setq projectile-cache-file
       (expand-file-name  "projectile.cache" ss-emacs-save-path))
 
+(require 'helm)
+;;  a magic patch that allows to insert the kill ring history AFTER the point.
+(defun patch-fix-helm-kill-ring-action-yank (old-fn &rest arg)
+  (interactive)
+  (save-excursion
+    (evil-save-state
+      (evil-insert-state)
+      (evil-append 1)
+      (apply old-fn arg)
+      (sit-for 0.001))))
+(advice-add 'helm-kill-ring-action-yank :around #'patch-fix-helm-kill-ring-action-yank)
+
 (require 'recentf)
 (setq recentf-save-file (expand-file-name "recentf" ss-emacs-save-path)
       recentf-max-saved-items 500
