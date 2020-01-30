@@ -89,3 +89,27 @@
   (emacs-lisp-mode))
 (unless (boundp 'auto-revert-buffers-counter)
   (setq auto-revert-buffers-counter 0))
+
+
+
+;; redefining the build-in function.
+;; an emacs bug that happens when calling python-mode.
+;; initially, the load-history is an alist, which the key is
+;; a string and the val are symbols or lists.
+;; something bad happens to the codebase that some alist cells
+;; do not contain a key string. this causes the error to happen.
+;; for more details, see:
+;; https://emacs.stackexchange.com/questions/5552/emacs-on-android-org-mode-error-wrong-type-argument-stringp-require-t
+(defun load-history-filename-element (file-regexp)
+  "Get the first elt of `load-history' whose car matches FILE-REGEXP.
+        Return nil if there isn't one."
+  (let* ((loads load-history)
+         (load-elt (and loads (car loads))))
+    (save-match-data
+      (while (and loads
+                  (or (null (car load-elt))
+                      (not (and (stringp (car load-elt)) ; new condition
+                                (string-match file-regexp (car load-elt))))))
+        (setq loads (cdr loads)
+              load-elt (and loads (car loads)))))
+    load-elt))
