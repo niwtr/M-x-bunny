@@ -3,7 +3,7 @@
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
-(setq ss-ui-theme 'default-emacs-black-theme)
+(setq ss-ui-theme 'leuven)
 
 (setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)
@@ -17,11 +17,17 @@
 (setq ss-ms-pyls-executable 'default)
 
 ;; lisp
+(setq ss-use-feature-lisp nil)
 (setq ss-lisp-system nil) ;; slime or sly or nil
 (setq ss-inferior-lisp-program "/home/niutr/bin/ecl")
 
+;; cpp
+(setq ss-use-feature-cpp t)
+(setq ss-c++-system 'lsp)
+(setq ss-ccls-executable "/usr/local/bin/ccls2")
+
 ;; latex
-(setq ss-use-latex nil)
+(setq ss-use-feature-latex nil)
 
 ;; multi-editing
 (setq use-iedit nil)

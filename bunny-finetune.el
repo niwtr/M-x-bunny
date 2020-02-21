@@ -83,6 +83,8 @@
       ;; disable recentf-cleanup on Emacs start, because it can cause
       ;; problems with remote files
       recentf-auto-cleanup 'never)
+(recentf-load-list)
+(run-at-time nil (* 5 60) 'recentf-save-list)
 
 
 (with-current-buffer (get-buffer-create "*Messages*")

@@ -44,6 +44,7 @@
 (use-package zone-rainbow :ensure t :after evil-leader)
 
 (use-package posframe :ensure t)
+
 (use-package hl-todo
   :ensure t
   :config
@@ -57,7 +58,9 @@
     (setq evil-want-keybinding nil)
     (setq evil-want-fine-undo t)
     (setq evil-auto-indent t
-	  evil-search-wrap t))
+	  evil-search-wrap t)
+    ;; (setq evil-disable-insert-state-bindings t)
+    )
   :config
   (defun ex-kill-buffer-and-close()
     (interactive)
@@ -425,3 +428,5 @@
 ;; package for viewing clipboard from the remote server.
 (use-package bunny-krws)
 (use-package bunny-insert-surroundings)
+
+(use-package bunny-window-manager)

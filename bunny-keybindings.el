@@ -41,7 +41,6 @@
 (evil-leader/set-key
   "cc" 'evilnc-comment-or-uncomment-lines)
 
-
 ;; evil-multiedit
 (when use-evil-multiedit
   (require 'evil-multiedit)
@@ -121,6 +120,9 @@
 (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
 (define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
 (define-key helm-map (kbd "<escape>") 'keyboard-escape-quit)
+
+(evil-global-set-key 'normal (kbd "M-k") #'helm-M-x)
+(evil-global-set-key 'insert (kbd "M-k") #'helm-M-x)
 (customize-set-variable 'helm-ff-lynx-style-map nil)
 
 
@@ -363,45 +365,52 @@
     ("d" . 'jedi:goto-definition)
     ("b" . 'jedi:goto-definition-pop-marker)))
 
-
+;;; -------------------- lang CPP ---------------------------------
+(when ss-use-feature-cpp
+  (define-minor-mode-leader-keymap 'c++-mode :overwrite t
+    ("d" . 'lsp-find-definition)
+    ("r" . 'lsp-find-references)
+    ("e" . 'bunny-compile-and-run-c++-file)))
 
 
 ;;; -------------------- lang lisp ---------------------------------
-(when use-slime
-  (require 'slime)
-  (define-minor-mode-leader-keymap 'lisp-mode
-    ("C" . 'slime-connect)
-    (","  . 'slime-compile-defun)
-    ("ee" . 'slime-eval-defun)
-    ("mo" . 'slime-macroexpand-1)
-    ("mm" . 'slime-macroexpand-all)
-    ("eb" . 'slime-eval-buffer)))
-
-(when use-sly
-  (require 'sly)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "0") 'sly-db-invoke-restart-0)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "1") 'sly-db-invoke-restart-1)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "2") 'sly-db-invoke-restart-2)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "3") 'sly-db-invoke-restart-3)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "4") 'sly-db-invoke-restart-4)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "5") 'sly-db-invoke-restart-5)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "6") 'sly-db-invoke-restart-6)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "7") 'sly-db-invoke-restart-7)
-  (evil-define-key 'normal sly-mrepl-mode-map (kbd "8") 'sly-db-invoke-restart-8)
-  (define-minor-mode-leader-keymap 'lisp-mode
-    ("1" . 'sly-db-invoke-restart)
-    ("C" . 'sly-connect)
-    (","  . 'sly-compile-defun)
-    ("mo" . 'sly-macroexpand-1)
-    ("mm" . 'sly-macroexpand-all)
-    ("ee" . 'sly-eval-defun)
-    ("eb" . 'sly-eval-buffer)))
+(when ss-use-feature-lisp
+  (when  use-slime
+    (require 'slime)
+    (define-minor-mode-leader-keymap 'lisp-mode
+      ("C" . 'slime-connect)
+      (","  . 'slime-compile-defun)
+      ("ee" . 'slime-eval-defun)
+      ("mo" . 'slime-macroexpand-1)
+      ("mm" . 'slime-macroexpand-all)
+      ("eb" . 'slime-eval-buffer)))
+  
+  (when use-sly
+    (require 'sly)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "0") 'sly-db-invoke-restart-0)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "1") 'sly-db-invoke-restart-1)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "2") 'sly-db-invoke-restart-2)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "3") 'sly-db-invoke-restart-3)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "4") 'sly-db-invoke-restart-4)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "5") 'sly-db-invoke-restart-5)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "6") 'sly-db-invoke-restart-6)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "7") 'sly-db-invoke-restart-7)
+    (evil-define-key 'normal sly-mrepl-mode-map (kbd "8") 'sly-db-invoke-restart-8)
+    (define-minor-mode-leader-keymap 'lisp-mode
+      ("1" . 'sly-db-invoke-restart)
+      ("C" . 'sly-connect)
+      (","  . 'sly-compile-defun)
+      ("mo" . 'sly-macroexpand-1)
+      ("mm" . 'sly-macroexpand-all)
+      ("ee" . 'sly-eval-defun)
+      ("eb" . 'sly-eval-buffer)))
+  )
 
 
 
 
 ;;; ---------------------- lang LaTeX -------------------------------
-(when ss-use-latex
+(when ss-use-feature-latex
   (require 'tex)
   (define-minor-mode-leader-keymap 'LaTeX-mode
     ("me" . 'LaTeX-mark-environment)
@@ -414,6 +423,29 @@
     ("pe" . 'preview-environment)))
 
 
+;;;; experimental ;;;;;;
+(require 'hydra)
+(defhydra hydra-window ()
+  "Bunny Window Manager"
+  ("q" nil)
+  ("d" delete-window "kill this window")
+  ("h" bunny-window-left "new window left")
+  ("l" bunny-window-right "new window right")
+  ("j" bunny-window-down "new window down")
+  ("k" bunny-window-up "new window up")
+  ("H" windmove-left "left")
+  ("J" windmove-down "down")
+  ("K" windmove-up "up")
+  ("L" windmove-right "right"))
+(evil-global-set-key 'normal (kbd "M-w") 'hydra-window/body)
+
+(evil-global-set-key 'insert (kbd "C-a") 'move-beginning-of-line)
+(evil-global-set-key 'insert (kbd "C-e") 'move-end-of-line)
+(evil-global-set-key 'insert (kbd "C-p") 'previous-line)
+(evil-global-set-key 'insert (kbd "C-n") 'next-line)
+;;; NOTE potential confilict to evil-mc
+(evil-global-set-key 'insert (kbd "M-p") 'backward-paragraph)
+(evil-global-set-key 'insert (kbd "M-n") 'forward-paragraph)
 
 
 ;; 

@@ -79,6 +79,7 @@
 (when use-lsp
   (use-package lsp-mode :ensure t
     :config
+    (setq lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd")
     (setq lsp-enable-snippet nil)
     ;; when you type a semicolon, this will trigger
     ;; the on-type-formatting, which is annoying.
