@@ -448,6 +448,11 @@
 (evil-global-set-key 'insert (kbd "M-n") 'forward-paragraph)
 
 
+(require 'bunny-tweaks)
+(define-key evil-visual-state-map (kbd ">") 'bunny-evil-shift-right-visual)
+(define-key evil-visual-state-map (kbd "<") 'bunny-evil-shift-left-visual)
+
+
 ;; 
 ;; bunny-keybindings.el ends here.
 

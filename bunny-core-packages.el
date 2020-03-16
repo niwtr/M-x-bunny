@@ -84,6 +84,8 @@
     (scroll-down 10))
   (evil-mode 1))
 
+(use-package hydra :ensure t)
+
 
 (use-package evil-leader
   :ensure t
@@ -430,3 +432,8 @@
 (use-package bunny-insert-surroundings)
 
 (use-package bunny-window-manager)
+
+(use-package bunny-tweaks)
+
+
+;;; bunny-core-packages.el ends here.

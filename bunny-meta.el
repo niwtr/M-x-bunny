@@ -22,7 +22,7 @@
 (setq ss-inferior-lisp-program "/home/niutr/bin/ecl")
 
 ;; cpp
-(setq ss-use-feature-cpp t)
+(setq ss-use-feature-cpp nil)
 (setq ss-c++-system 'lsp)
 (setq ss-ccls-executable "/usr/local/bin/ccls2")
 
