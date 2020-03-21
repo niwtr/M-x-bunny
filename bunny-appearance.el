@@ -115,6 +115,7 @@
     (remove-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme)))
 
 (when use-modus-operandi
+  (use-package modus-operandi-theme :ensure t)
   (load-theme 'modus-operandi t))
 
 (when use-doom

@@ -45,6 +45,7 @@
 
 (use-package posframe :ensure t)
 
+
 (use-package hl-todo
   :ensure t
   :config
@@ -189,6 +190,14 @@
 
 (use-package smex :ensure t)
 (use-package counsel-projectile	:ensure t)
+
+(use-package ivy-posframe :ensure t
+  :init
+  (setq ivy-posframe-display-functions-alist
+	'((swiper          . nil)
+	  (counsel-M-x     . ivy-posframe-display-at-frame-center)
+	  (counsel-recentf . nil)
+	  (t               . ivy-posframe-display-at-frame-center))))
 
 (use-package swiper
   :ensure t
