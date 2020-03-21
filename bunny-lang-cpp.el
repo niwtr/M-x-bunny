@@ -4,7 +4,10 @@
   (use-package ccls :ensure t
     :config
     (add-hook 'c++-mode-hook 'lsp)
-    (setq ccls-executable ss-ccls-executable)))
+    (setq ccls-executable
+	  (if (eq 'default ss-ccls-executable)
+	      (locate-file "ccls" exec-path)
+	    ss-ccls-executable))))
 
 (defun bunny-compile-and-run-c++-file ()
   (interactive)

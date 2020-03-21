@@ -167,9 +167,7 @@
 		   (cond
 		    ((string-match-p  "\*EGLOT*" buffer) nil)
 		    (t buffer)))
-		 buffer-list)))
-    (advice-add 'helm-skip-boring-buffers
-		:filter-return 'bunny-filter-eglot-buffers)))
+		 buffer-list)))))
 
 (when use-yasnippet
   (use-package yasnippet

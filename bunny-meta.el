@@ -3,7 +3,7 @@
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
-(setq ss-ui-theme 'leuven)
+(setq ss-ui-theme 'modus-operandi)
 
 (setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)

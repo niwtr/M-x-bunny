@@ -104,51 +104,48 @@
 (define-key swiper-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 
 
-;; helm
-(require 'helm)
+;; counsel
+(require 'counsel)
 (evil-leader/set-key
-  "<SPC>" 'helm-M-x
+  "<SPC>" 'counsel-M-x
   "dv" 'describe-variable
   "dk" 'describe-key
   "df" 'describe-function
-  "eb" 'eval-buffer
+  "eb" (lambda () (interactive) (eval-buffer) (message "Buffer evaluated."))
   "ee" 'eval-defun
-  "f" 'helm-find-files
-  "F" 'helm-recentf
-  "k" 'helm-show-kill-ring
-  "b" 'helm-buffers-list)
-(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
-(define-key helm-map (kbd "TAB") #'helm-execute-persistent-action)
-(define-key helm-map (kbd "<escape>") 'keyboard-escape-quit)
+  "f" 'counsel-find-file
+  "F" 'counsel-recentf
+  "k" 'counsel-yank-pop
+  "b" 'ivy-switch-buffer)
 
-(evil-global-set-key 'normal (kbd "M-k") #'helm-M-x)
-(evil-global-set-key 'insert (kbd "M-k") #'helm-M-x)
-(customize-set-variable 'helm-ff-lynx-style-map nil)
+(setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-center)))
+(setq ivy-posframe-display-functions-alist
+      '((swiper          . nil)
+	(counsel-M-x     . ivy-posframe-display-at-frame-center)
+	(t               . ivy-posframe-display-at-frame-center)))
 
 
-;; helm-projectile
-(require 'helm-projectile)
-(evil-global-set-key 'normal (kbd "M-o") 'helm-projectile-switch-to-buffer)
+(evil-global-set-key 'insert (kbd "M-x") 'smex)
+(evil-global-set-key 'visual (kbd "M-x") 'smex)
+(evil-global-set-key 'normal (kbd "M-x") 'smex)
+
+;; this is suboptimal
+(evil-global-set-key 'normal (kbd "M-o") 'counsel-projectile-switch-to-buffer)
 (evil-leader/set-key
-  "ps" 'helm-projectile-switch-project
-  "pf" 'helm-projectile-find-file
+  "ps" 'counsel-projectile-switch-project
+  "pf" 'counsel-projectile-find-file
   "ppa" 'projectile-add-known-project
   "ppc" 'projectile-cleanup-known-projects
   "ppd" 'projectile-remove-known-project
   "ppC" 'projectile-clear-known-projects
-  "pa" (cond ((locate-file "rg" exec-path) 'helm-projectile-rg)
-	     ((locate-file "ag" exec-path) 'helm-projectile-ag)
-	     ((locate-file "ack" exec-path) 'helm-projectile-ack)
+  "pa" (cond ((locate-file "rg" exec-path) 'counsel-projectile-rg)
+	     ((locate-file "ag" exec-path) 'counsel-projectile-ag)
 	     (t
-	      (defun helm-projectile-ag-dummy ()
+	      (defun counsel-projectile-ag-dummy ()
 		(interactive)
 		(message
-		 "You don't have rg, ag or ack installed in your computer. Install them first."))
-	      'helm-projectile-ag-dummy)))
-
-;; helm-descbinds
-(require 'helm-descbinds)
-(evil-leader/set-key "db" 'helm-descbinds)
+		 "You don't have rg or ag installed in your computer. Install them first."))
+	      'counsel-projectile-ag-dummy)))
 
 ;; dired
 (evil-collection-define-key 'normal
@@ -236,6 +233,8 @@
 
 ;; magit
 (require 'magit)
+;; fix keybinds for GUI mode.
+(evil-define-key 'normal magit-mode-map (kbd "<tab>") 'magit-section-toggle)
 (evil-leader/set-key
   "gs" 'magit-status)
 
@@ -295,8 +294,7 @@
   #'bunny-eshell-goto-input-line-and-insert)
 
 
-
-(evil-global-set-key 'normal (kbd "\\") 'bunny-helm-eshell-finder)
+(evil-global-set-key 'normal (kbd "\\") 'bunny-ivy-eshell-finder)
 (define-minor-mode-leader-keymap 'eshell-mode :overwrite t
   ("c" . 'eshell-clear)
   ("i" . 'eshell-interrupt-process)

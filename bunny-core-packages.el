@@ -168,14 +168,27 @@
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 3.0 :color "blue")))))))
 
-(use-package ivy :ensure t)
+(use-package ivy :ensure t :config
+  (ivy-mode +1)
+  (setq ivy-re-builders-alist
+	'((counsel-M-x . ivy--regex-ignore-order)
+	  (swiper . ivy--regex-plus)
+	  (t  . ivy--regex-ignore-order))))
+
+(use-package ivy-rich :ensure t
+  :config
+  (ivy-rich-mode +1))
 
 (use-package counsel :ensure t
   :config
+  (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
   (when (locate-file "rg" exec-path)
     ;;; then use ripgrep.
     (setq counsel-grep-base-command
 	  "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
+
+(use-package smex :ensure t)
+(use-package counsel-projectile	:ensure t)
 
 (use-package swiper
   :ensure t
@@ -186,42 +199,16 @@
 	(counsel-grep-or-swiper (buffer-substring st ed))
       (counsel-grep-or-swiper (thing-at-point 'symbol)))))
 
-;;; helm
-(use-package helm
-  :ensure t
-  :demand t
-    ;;; below: i disneed may be.
-  :bind (("M-x" . 'helm-M-x))
-  :bind (:map helm-map
-	      ("M-i" . helm-previous-line)
-	      ("M-k" . helm-next-line)
-	      ("M-I" . helm-previous-page)
-	      ("M-K" . helm-next-page)
-	      ("M-h" . helm-beginning-of-buffer)
-	      ("M-H" . helm-end-of-buffer))
-  :config
-  (setq helm-buffers-fuzzy-matching t)
-  (helm-mode 1))
 
-(use-package helm-projectile
-  :ensure t
-  :config
-  (helm-projectile-on))
 
-(use-package helm-descbinds :ensure t)
-
-(defun bunny--helm-filter-buffers (buffer-list)
-  (delq nil (mapcar
+(add-to-list 'ivy-ignore-buffers
 	     (lambda (buffer)
-	       (cond
-		((eq (with-current-buffer buffer major-mode)  'eshell-mode) nil)
-		((eq (with-current-buffer buffer major-mode)  'magit-process-mode) nil)
-		((eq (with-current-buffer buffer major-mode)  'magit-mode) nil)
-		((eq (with-current-buffer buffer major-mode)  'magit-status-mode) nil)
-		((eq (with-current-buffer buffer major-mode)  'magit-diff-mode) nil)
-		(t buffer)))
-	     buffer-list)))
-(advice-add 'helm-skip-boring-buffers :filter-return 'bunny--helm-filter-buffers)
+	       (memq (with-current-buffer buffer major-mode)
+                     '(eshell-mode
+                       magit-process-mode
+                       magit-status-mode
+                       magit-diff-mode))))
+
 
 ;;; dired
 (use-package dired-subtree :ensure t)
@@ -264,15 +251,7 @@
   (eyebrowse-mode t)
   (setq eyebrowse-new-workspace t))
 
-(use-package golden-ratio
-  :ensure t
-  :config 
-  (define-advice select-window (:after (window &optional no-record)
-				       golden-ratio-resize-window)
-    (unless (string-match-p (regexp-quote "helm") (buffer-name))
-      (golden-ratio))
-    nil))
-
+(use-package golden-ratio :ensure t)
 
 (use-package expand-region :ensure t
   :config

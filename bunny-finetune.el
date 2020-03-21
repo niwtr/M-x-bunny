@@ -2,6 +2,8 @@
 (setq inhibit-startup-message t)
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq tramp-verbose 1)
+;; (setq tramp-verbose 6)
+(setq tramp-inline-compress-start-size 10000000)
 (setq redisplay-dont-pause t)
   ;;; never kill the scratch buffer.
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
@@ -64,18 +66,6 @@
 (setq projectile-cache-file
       (expand-file-name  "projectile.cache" ss-emacs-save-path))
 
-(require 'helm)
-;;  a magic patch that allows to insert the kill ring history AFTER the point.
-(defun patch-fix-helm-kill-ring-action-yank (old-fn &rest arg)
-  (interactive)
-  (save-excursion
-    (evil-save-state
-      (evil-insert-state)
-      (evil-append 1)
-      (apply old-fn arg)
-      (sit-for 0.001))))
-(advice-add 'helm-kill-ring-action-yank :around #'patch-fix-helm-kill-ring-action-yank)
-
 (require 'recentf)
 (setq recentf-save-file (expand-file-name "recentf" ss-emacs-save-path)
       recentf-max-saved-items 500
@@ -115,3 +105,23 @@
         (setq loads (cdr loads)
               load-elt (and loads (car loads)))))
     load-elt))
+
+
+(defun new-python-scratch ()
+  "open up a guaranteed new scratch buffer"
+  (interactive)
+  (switch-to-buffer (loop for num from 0
+			  for name = (format "temp-buffer-%03i" num)
+			  while (get-buffer name)
+			  finally return name))
+  (python-mode))
+(defun new-python-scratch-with-current-clipboard ()
+  "open up a guaranteed new scratch buffer"
+  (interactive)
+  (switch-to-buffer (loop for num from 0
+			  for name = (format "temp-buffer-%03i" num)
+			  while (get-buffer name)
+			  finally return name))
+  (python-mode)
+  (insert "from typing import List\n")
+  (yank))

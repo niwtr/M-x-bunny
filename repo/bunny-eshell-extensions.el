@@ -146,15 +146,15 @@
 ;; (evil-leader/set-key "em" 'eshell-manager-mode)
 
 ;; (message "ok!")
-(defvar bunny-helm-eshell-finder-show-directory t)
-(defvar bunny-helm-eshell-finder-show-eshell-status t)
-(defun bunny-helm-eshell-finder-directory (eshell-buffer-name)
+(defvar bunny-ivy-eshell-finder-show-directory t)
+(defvar bunny-ivy-eshell-finder-show-eshell-status t)
+(defun bunny-ivy-eshell-finder-directory (eshell-buffer-name)
   (concat 
    (propertize 
     (with-current-buffer (car c) default-directory)
     'font-lock-face '(:foreground "yellow"))
    " "))
-(defun bunny-helm-eshell-finder-eshell-status (eshell-buffer-name)
+(defun bunny-ivy-eshell-finder-eshell-status (eshell-buffer-name)
   (concat 
    (if (get-buffer-process (car c))
        (propertize "[RUNNING]" 'font-lock-face '(:foreground "red"))
@@ -162,7 +162,7 @@
    " "))
 
 
-(defun bunny-helm-eshell-finder ()
+(defun bunny-ivy-eshell-finder ()
   "find eshell by their running, or previous rinning command."
   (interactive)
   (let ((eshells (bunny--list-eshells))
@@ -175,22 +175,18 @@
 	  (mapcar (lambda (c)
 		    (concat
 		     (propertize (car c) 'font-lock-face '(:foreground "blue")) " "
-		     (if bunny-helm-eshell-finder-show-eshell-status
-			 (bunny-helm-eshell-finder-eshell-status (car c))
+		     (if bunny-ivy-eshell-finder-show-eshell-status
+			 (bunny-ivy-eshell-finder-eshell-status (car c))
 		       "")
-		     (if bunny-helm-eshell-finder-show-directory
-			 (bunny-helm-eshell-finder-directory (car c))
+		     (if bunny-ivy-eshell-finder-show-directory
+			 (bunny-ivy-eshell-finder-directory (car c))
 		       "")
 		     (cadr c)))
 		  callbacks))
-    (setq source
-	  `((name . "Find eshell by its running status, directory and last command:")
-	    (candidates . ,display-fn)
-	    (action . (lambda (cand)
+    (ivy-read "Eshells:" display-fn
+	      :action (lambda (cand)
 			(switch-to-buffer
 			 (substring cand 0 (position ?\  cand)))))))
-    (helm :sources source)))
-
 
 (defun bunny-eshell-kill-all-idle-eshell ()
   (interactive)

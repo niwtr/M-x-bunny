@@ -45,6 +45,7 @@
     green-phosphor
     dracula
     leuven
+    modus-operandi
     ))
 
 (dolist (theme available-ui-themes)
@@ -112,6 +113,9 @@
   (add-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme)
   (defadvice load-theme (before theme-dont-propagate activate)
     (remove-hook 'post-command-hook 'bunny-set-hl-line-for-lighter-theme)))
+
+(when use-modus-operandi
+  (load-theme 'modus-operandi t))
 
 (when use-doom
   (use-package doom-themes
