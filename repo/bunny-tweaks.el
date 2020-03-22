@@ -11,4 +11,24 @@
   (evil-normal-state)
   (evil-visual-restore))
 
+(defun new-python-scratch ()
+  "open up a guaranteed new scratch buffer"
+  (interactive)
+  (switch-to-buffer (loop for num from 0
+			  for name = (format "temp-buffer-%03i" num)
+			  while (get-buffer name)
+			  finally return name))
+  (python-mode))
+
+(defun new-python-scratch-with-current-clipboard ()
+  "open up a guaranteed new scratch buffer"
+  (interactive)
+  (switch-to-buffer (loop for num from 0
+			  for name = (format "temp-buffer-%03i" num)
+			  while (get-buffer name)
+			  finally return name))
+  (python-mode)
+  (insert "from typing import List\n")
+  (yank))
+
 (provide 'bunny-tweaks)

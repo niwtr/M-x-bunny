@@ -4,6 +4,7 @@
 (setq tramp-verbose 1)
 ;; (setq tramp-verbose 6)
 (setq tramp-inline-compress-start-size 10000000)
+
 (setq redisplay-dont-pause t)
   ;;; never kill the scratch buffer.
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
@@ -38,6 +39,43 @@
   (global-set-key [mouse-5] (lambda () (interactive) (scroll-up 1)))
   (defun track-mouse (e))
   (setq mouse-sel-mode t))
+
+;;; fix mac-specific commands for emacs mac port
+(when (eq window-system 'mac)
+  (defun isolate-kill-ring()
+    "Isolate Emacs kill ring from OS X system pasteboard.
+This function is only necessary in window system."
+    (interactive)
+    (setq interprogram-cut-function nil)
+    (setq interprogram-paste-function nil))
+
+  (defun pasteboard-copy()
+    "Copy region to OS X system pasteboard."
+    (interactive)
+    (shell-command-on-region
+     (region-beginning) (region-end) "pbcopy"))
+
+  (defun pasteboard-paste()
+    "Paste from OS X system pasteboard via `pbpaste' to point."
+    (interactive)
+    (shell-command-on-region
+     (point) (if mark-active (mark) (point)) "pbpaste" nil t))
+
+  (defun pasteboard-cut()
+    "Cut region and put on OS X system pasteboard."
+    (interactive)
+    (pasteboard-copy)
+    (delete-region (region-beginning) (region-end)))
+
+  (progn
+    (isolate-kill-ring)
+    ;; bind CMD+C to pasteboard-copy
+    (global-set-key (kbd "s-c") 'pasteboard-copy)
+    ;; bind CMD+V to pasteboard-paste
+    (global-set-key (kbd "s-v") 'pasteboard-paste)
+    ;; bind CMD+X to pasteboard-cut
+    (global-set-key (kbd "s-x") 'pasteboard-cut)
+    (global-set-key (kbd "s-z") 'undo-tree-undo)))
 
 
 ;; prevent emacs from freezing when displaying hanzi and emoji.
@@ -83,7 +121,6 @@
   (setq auto-revert-buffers-counter 0))
 
 
-
 ;; redefining the build-in function.
 ;; an emacs bug that happens when calling python-mode.
 ;; initially, the load-history is an alist, which the key is
@@ -106,22 +143,3 @@
               load-elt (and loads (car loads)))))
     load-elt))
 
-
-(defun new-python-scratch ()
-  "open up a guaranteed new scratch buffer"
-  (interactive)
-  (switch-to-buffer (loop for num from 0
-			  for name = (format "temp-buffer-%03i" num)
-			  while (get-buffer name)
-			  finally return name))
-  (python-mode))
-(defun new-python-scratch-with-current-clipboard ()
-  "open up a guaranteed new scratch buffer"
-  (interactive)
-  (switch-to-buffer (loop for num from 0
-			  for name = (format "temp-buffer-%03i" num)
-			  while (get-buffer name)
-			  finally return name))
-  (python-mode)
-  (insert "from typing import List\n")
-  (yank))

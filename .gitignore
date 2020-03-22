@@ -24,4 +24,9 @@ eshell/
 transient/
 .cache
 elpa/
+recentf
+url/
+smex-items
+tramp
+
 

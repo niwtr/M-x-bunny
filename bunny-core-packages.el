@@ -45,7 +45,6 @@
 
 (use-package posframe :ensure t)
 
-
 (use-package hl-todo
   :ensure t
   :config
@@ -197,7 +196,9 @@
 	'((swiper          . nil)
 	  (counsel-M-x     . ivy-posframe-display-at-frame-center)
 	  (counsel-recentf . nil)
-	  (t               . ivy-posframe-display-at-frame-center))))
+	  (t               . ivy-posframe-display-at-frame-center)))
+  :config
+  (ivy-posframe-mode +1))
 
 (use-package swiper
   :ensure t
@@ -207,8 +208,6 @@
     (if (use-region-p)
 	(counsel-grep-or-swiper (buffer-substring st ed))
       (counsel-grep-or-swiper (thing-at-point 'symbol)))))
-
-
 
 (add-to-list 'ivy-ignore-buffers
 	     (lambda (buffer)
