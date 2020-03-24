@@ -98,6 +98,8 @@
 (require 'swiper)
 (evil-global-set-key 'normal (kbd "?") 'bunny-swiper-at-point)
 (evil-global-set-key 'visual (kbd "?") 'bunny-swiper-at-point)
+(evil-global-set-key 'normal (kbd "C-/") 'ivy-resume)
+(evil-global-set-key 'visual (kbd "C-/") 'ivy-resume)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 (define-key swiper-map (kbd "?") 'swiper-avy)
@@ -441,6 +443,7 @@
 (evil-global-set-key 'insert (kbd "C-e") 'move-end-of-line)
 (evil-global-set-key 'insert (kbd "C-p") 'previous-line)
 (evil-global-set-key 'insert (kbd "C-n") 'next-line)
+(evil-global-set-key 'insert (kbd "C-k") 'kill-line)
 ;;; NOTE potential confilict to evil-mc
 (evil-global-set-key 'insert (kbd "M-p") 'backward-paragraph)
 (evil-global-set-key 'insert (kbd "M-n") 'forward-paragraph)

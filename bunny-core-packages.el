@@ -170,6 +170,7 @@
 
 (use-package ivy :ensure t :config
   (ivy-mode +1)
+  (setq ivy-do-completion-in-region nil)
   (setq ivy-re-builders-alist
 	'((counsel-M-x . ivy--regex-ignore-order)
 	  (swiper . ivy--regex-plus)

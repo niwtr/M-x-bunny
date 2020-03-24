@@ -42,6 +42,10 @@
 
 ;;; fix mac-specific commands for emacs mac port
 (when (eq window-system 'mac)
+
+  (setq mac-command-modifier 'super)
+  (setq mac-option-modifier 'meta)
+
   (defun isolate-kill-ring()
     "Isolate Emacs kill ring from OS X system pasteboard.
 This function is only necessary in window system."
