@@ -53,7 +53,9 @@
   (define-key evil-normal-state-map (kbd "M-p") 'evil-multiedit-match-and-prev)
   (define-key evil-multiedit-state-map (kbd "M-p") 'evil-multiedit-match-and-prev)
   (define-key evil-visual-state-map (kbd "M-p") 'evil-multiedit-match-and-prev)
-  (define-key evil-normal-state-map (kbd "M-RET") 'evil-multi-edit-put-marker-and-move))
+  (define-key evil-normal-state-map (kbd "M-RET") 'evil-multi-edit-put-marker-and-move)
+  (define-key evil-multiedit-state-map (kbd "z") 'ace-jump-zap-to-char)
+  (define-key evil-multiedit-state-map (kbd "Z") 'ace-jump-zap-up-to-char))
 
 ;; projectile
 
@@ -74,8 +76,8 @@
 (evil-global-set-key 'operator (kbd "o") 'ace-jump-word-mode)
 (evil-global-set-key 'visual (kbd "t") 'ace-jump-line-mode)
 ;; (evil-global-set-key 'operator (kbd "t") 'ace-jump-line-mode)
-(evil-global-set-key 'normal (kbd "z") 'zap-to-char)
-(evil-global-set-key 'normal (kbd "Z") 'zap-up-to-char)
+(evil-global-set-key 'normal (kbd "z") 'ace-jump-zap-to-char)
+(evil-global-set-key 'normal (kbd "Z") 'ace-jump-zap-up-to-char)
 (evil-global-set-key 'visual (kbd "o") 'ace-jump-word-mode)
 (evil-global-set-key 'visual (kbd "v") 'evil-visual-line)
 (evil-leader/set-key "j" 'ace-jump-mode)
@@ -100,6 +102,11 @@
 (evil-global-set-key 'visual (kbd "?") 'bunny-swiper-at-point)
 (evil-global-set-key 'normal (kbd "C-/") 'ivy-resume)
 (evil-global-set-key 'visual (kbd "C-/") 'ivy-resume)
+;; used in terminal, identical to C-/
+(evil-global-set-key 'normal (kbd "C-_") 'ivy-resume)
+(evil-global-set-key 'visual (kbd "C-_") 'ivy-resume)
+(evil-global-set-key 'operator (kbd "C-_") 'ivy-resume)
+(evil-global-set-key 'insert (kbd "C-_") 'ivy-resume)
 (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 (define-key swiper-map (kbd "?") 'swiper-avy)
@@ -439,14 +446,22 @@
   ("L" windmove-right "right"))
 (evil-global-set-key 'normal (kbd "M-w") 'hydra-window/body)
 
+
+
+;;; to make compatibility with emacs state.
 (evil-global-set-key 'insert (kbd "C-a") 'move-beginning-of-line)
 (evil-global-set-key 'insert (kbd "C-e") 'move-end-of-line)
 (evil-global-set-key 'insert (kbd "C-p") 'previous-line)
 (evil-global-set-key 'insert (kbd "C-n") 'next-line)
 (evil-global-set-key 'insert (kbd "C-k") 'kill-line)
+(evil-global-set-key 'insert (kbd "C-d") 'hungry-delete-forward)
+
 ;;; NOTE potential confilict to evil-mc
 (evil-global-set-key 'insert (kbd "M-p") 'backward-paragraph)
 (evil-global-set-key 'insert (kbd "M-n") 'forward-paragraph)
+
+
+
 
 
 (require 'bunny-tweaks)

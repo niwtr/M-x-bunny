@@ -91,7 +91,7 @@ This function is only necessary in window system."
 ;; ediff - don't start another frame
 (require 'ediff)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
+(setq ediff-split-window-function 'split-window-horizontally)
 ;; abbrev config
 (add-hook 'text-mode-hook 'abbrev-mode)
 (add-hook 'text-mode-hook 'auto-fill-mode)
