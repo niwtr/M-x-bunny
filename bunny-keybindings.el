@@ -456,7 +456,6 @@
 (evil-global-set-key 'insert (kbd "C-k") 'kill-line)
 (evil-global-set-key 'insert (kbd "C-d") 'hungry-delete-forward)
 
-;;; NOTE potential confilict to evil-mc
 (evil-global-set-key 'insert (kbd "M-p") 'backward-paragraph)
 (evil-global-set-key 'insert (kbd "M-n") 'forward-paragraph)
 
