@@ -461,11 +461,15 @@
 
 
 
-
-
 (require 'bunny-tweaks)
 (define-key evil-visual-state-map (kbd ">") 'bunny-evil-shift-right-visual)
 (define-key evil-visual-state-map (kbd "<") 'bunny-evil-shift-left-visual)
+
+(require 'bunny-pair-ranger)
+(evil-global-set-key 'normal (kbd ")") 'bunny-pair-ranger-forward-to-right-bracket)
+(evil-global-set-key 'normal (kbd "(") 'bunny-pair-ranger-backward-to-left-bracket)
+(evil-global-set-key 'visual (kbd ")") 'bunny-pair-ranger-forward-to-right-bracket)
+(evil-global-set-key 'visual (kbd "(") 'bunny-pair-ranger-backward-to-left-bracket)
 
 
 ;; 

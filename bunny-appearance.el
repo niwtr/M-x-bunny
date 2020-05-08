@@ -46,6 +46,7 @@
     dracula
     leuven
     modus-operandi
+    wombat
     ))
 
 (dolist (theme available-ui-themes)
@@ -62,6 +63,10 @@
   (set-face-background 'vertical-border nil)
   (set-face-foreground 'vertical-border "black")
   (set-face-background 'iedit-occurrence "#696969"))
+
+(when use-wombat
+  (load-theme 'wombat t)
+  (set-face-attribute 'region nil :background "white"))
 
 (when use-zerodark 
   (use-package zerodark-theme

@@ -84,7 +84,7 @@
     ;; when you type a semicolon, this will trigger
     ;; the on-type-formatting, which is annoying.
     (setq lsp-enable-on-type-formatting nil)
-    (setq lsp-prefer-flymake t))
+    (setq lsp-diagnostic-package :flycheck))
   (use-package company-lsp
     :ensure t
     :config
