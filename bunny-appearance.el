@@ -16,8 +16,8 @@
 
 (when window-system
   (bunny-set-emacs-font)
-  (if (string-equal system-type "darwin")
-      (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
+  ;; (if (string-equal system-type "darwin")
+  ;;     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
@@ -42,6 +42,7 @@
     tao-yin
     tao-yang
     zerodark
+    zenburn
     green-phosphor
     dracula
     leuven
@@ -66,7 +67,13 @@
 
 (when use-wombat
   (load-theme 'wombat t)
+  (set-face-attribute 'region nil :foreground "black")
   (set-face-attribute 'region nil :background "white"))
+
+(when use-zenburn
+  (use-package zenburn-theme :ensure t
+    :config
+    (load-theme 'zenburn t)))
 
 (when use-zerodark 
   (use-package zerodark-theme

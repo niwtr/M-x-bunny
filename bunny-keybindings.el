@@ -9,6 +9,9 @@
 (define-key evil-normal-state-map (kbd "TAB") 'evil-indent-line)
 (define-key evil-normal-state-map (kbd "C-f") 'scroll-down-10)
 (define-key evil-normal-state-map (kbd "C-b") 'scroll-up-10)
+(define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
+(define-key evil-normal-state-map (kbd "C-o") 'evil-jump-backward)
+
 (evil-global-set-key 'normal (kbd "Q") 'evil-quit)
 (evil-global-set-key 'motion (kbd "Q") 'evil-quit)
 (evil-ex-define-cmd "qa" 'evil-quit-all)
@@ -375,9 +378,18 @@
 ;;; -------------------- lang CPP ---------------------------------
 (when ss-use-feature-cpp
   (define-minor-mode-leader-keymap 'c++-mode :overwrite t
-    ("d" . 'lsp-find-definition)
-    ("r" . 'lsp-find-references)
-    ("e" . 'bunny-compile-and-run-c++-file)))
+    ("d" . 'xref-find-definitions)
+    ("r" . 'xref-find-references)
+    ("o" . 'xref-find-definitions-other-window)
+    ("e" . 'bunny-compile-and-run-c++-file))
+  (when (eq ss-c++-system 'ggtags)
+    (define-minor-mode-leader-keymap 'c++-mode :overwrite nil
+      ("g" . 'ggtags-create-tags)))
+
+  (when (eq ss-c++-system 'lsp)
+    (define-minor-mode-leader-keymap 'c++-mode :overwrite nil
+      ("d" . 'lsp-find-definition)
+      ("r" . 'lsp-find-references))))
 
 
 ;;; -------------------- lang lisp ---------------------------------
@@ -458,7 +470,6 @@
 
 (evil-global-set-key 'insert (kbd "M-p") 'backward-paragraph)
 (evil-global-set-key 'insert (kbd "M-n") 'forward-paragraph)
-
 
 
 (require 'bunny-tweaks)

@@ -93,6 +93,7 @@
   (setq evil-leader/leader "<SPC>")
   :config (global-evil-leader-mode))
 
+
 ;; NOTE this package must be loaded here.
 (use-package bunny-minor-mode-leader-keymap)
 
@@ -130,6 +131,14 @@
 
 (use-package projectile :ensure t
   :config
+  (setq projectile-globally-ignored-directories
+	'(".git"
+	  ".ccls-cache"
+	  ".svn"
+	  ".idea"
+	  ".stack-work"
+	  ".cquery_cached_index"))
+  (projectile-global-mode)
   (projectile-load-known-projects)
   (advice-add 'projectile-add-known-project :after
 	      (lambda (arg)
@@ -183,6 +192,7 @@
 (use-package counsel :ensure t
   :config
   (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
+  (setq counsel-find-file-ignore-regexp "\\.ccls-cache")
   (when (locate-file "rg" exec-path)
     ;;; then use ripgrep.
     (setq counsel-grep-base-command

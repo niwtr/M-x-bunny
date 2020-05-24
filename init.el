@@ -15,9 +15,10 @@
   (load (expand-file-name "bunny-lang-cpp.el" dotemacs-dotd-path)))
 (when ss-use-feature-lisp
   (load (expand-file-name "bunny-lang-lisp.el" dotemacs-dotd-path)))
+(when ss-use-feature-scala
+  (load (expand-file-name "bunny-lang-scala.el" dotemacs-dotd-path)))
 (when ss-use-feature-latex
   (load (expand-file-name "bunny-lang-latex.el" dotemacs-dotd-path)))
 (load (expand-file-name "bunny-keybindings.el" dotemacs-dotd-path))
 (load (expand-file-name "bunny-finetune.el" dotemacs-dotd-path))
 (load custom-file)
-

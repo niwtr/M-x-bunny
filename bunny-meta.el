@@ -3,17 +3,18 @@
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
-(setq ss-ui-theme 'modus-operandi)
+(setq ss-ui-theme 'zenburn)
 
 (setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)
 
-(setq ss-font-family "Source Code Pro")
-(setq ss-font-height 120)
+;; (setq ss-font-family "Source Code Pro")
+(setq ss-font-family "IBM Plex Mono")
+(setq ss-font-height 125)
 
 ;; python
 (setq ss-python-env 'default)
-(setq ss-python-system 'lsp)
+(setq ss-python-system nil)
 (setq ss-ms-pyls-executable 'default)
 
 ;; lisp
@@ -22,9 +23,14 @@
 (setq ss-inferior-lisp-program "/home/niutr/bin/ecl")
 
 ;; cpp
-(setq ss-use-feature-cpp nil)
-(setq ss-c++-system 'lsp)
+(setq ss-use-feature-cpp t)
+(setq ss-c++-system 'ggtags)
 (setq ss-ccls-executable "/usr/local/bin/ccls2")
+
+;; scala
+(setq ss-use-feature-scala t)
+(setq ss-scala-use-sbt nil)
+
 
 ;; latex
 (setq ss-use-feature-latex nil)
