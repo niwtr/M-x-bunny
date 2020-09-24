@@ -4,6 +4,7 @@
 
 ;; appearance
 (setq ss-ui-theme 'zenburn)
+;; (setq ss-ui-theme 'modus-operandi)
 
 (setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)
@@ -23,12 +24,12 @@
 (setq ss-inferior-lisp-program "/home/niutr/bin/ecl")
 
 ;; cpp
-(setq ss-use-feature-cpp t)
+(setq ss-use-feature-cpp nil)
 (setq ss-c++-system 'ggtags)
 (setq ss-ccls-executable "/usr/local/bin/ccls2")
 
 ;; scala
-(setq ss-use-feature-scala t)
+(setq ss-use-feature-scala nil)
 (setq ss-scala-use-sbt nil)
 
 

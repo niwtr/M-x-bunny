@@ -9,8 +9,8 @@
 (define-key evil-normal-state-map (kbd "TAB") 'evil-indent-line)
 (define-key evil-normal-state-map (kbd "C-f") 'scroll-down-10)
 (define-key evil-normal-state-map (kbd "C-b") 'scroll-up-10)
-(define-key evil-normal-state-map (kbd "C-i") 'evil-jump-forward)
-(define-key evil-normal-state-map (kbd "C-o") 'evil-jump-backward)
+(define-key evil-normal-state-map (kbd "C-o") 'evil-jump-forward)
+(define-key evil-normal-state-map (kbd "C-p") 'evil-jump-backward)
 
 (evil-global-set-key 'normal (kbd "Q") 'evil-quit)
 (evil-global-set-key 'motion (kbd "Q") 'evil-quit)
@@ -289,31 +289,35 @@
 	    (message "bunny-iterm2-here is not supported in terminal."))))
 
 ;; bunny-eshell-extensions
-(require 'bunny-eshell-extensions)
-(evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
-(evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
-(evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
-(evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
-(evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
-(evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
-(evil-leader/set-key
-  "\\" 'bunny-neo-eshell
-  "|" 'bunny-eshell-command)
 
-(evil-define-key 'normal eshell-mode-map (kbd "<RET>")
-  #'bunny-eshell-maybe-commit-last)
-(evil-define-key 'normal eshell-mode-map (kbd "F")
-  #'bunny-eshell-goto-input-line-and-insert)
+(add-hook ;; renewing a new eshell may override the previous keybinding settings. 
+ 'eshell-mode-hook
+ (lambda ()
+   (require 'bunny-eshell-extensions)
+   (evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+   (evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+   (evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+   (evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+   (evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+   (evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+   (evil-leader/set-key
+     "\\" 'bunny-neo-eshell
+     "|" 'bunny-eshell-command)
+
+   (evil-define-key 'normal eshell-mode-map (kbd "<RET>")
+     #'bunny-eshell-maybe-commit-last)
+   (evil-define-key 'normal eshell-mode-map (kbd "F")
+     #'bunny-eshell-goto-input-line-and-insert)
 
 
-(evil-global-set-key 'normal (kbd "\\") 'bunny-ivy-eshell-finder)
-(define-minor-mode-leader-keymap 'eshell-mode :overwrite t
-  ("c" . 'eshell-clear)
-  ("i" . 'eshell-interrupt-process)
-  ("," . (lambda ()
-	   (interactive)
-	   (eshell-interrupt-process)
-	   (bunny-eshell-goto-input-line-and-insert))))
+   (evil-global-set-key 'normal (kbd "\\") 'bunny-ivy-eshell-finder)
+   (define-minor-mode-leader-keymap 'eshell-mode :overwrite t
+     ("c" . 'eshell-clear)
+     ("i" . 'eshell-interrupt-process)
+     ("," . (lambda ()
+	      (interactive)
+	      (eshell-interrupt-process)
+	      (bunny-eshell-goto-input-line-and-insert))))))
 
 (require 'bunny-insert-surroundings)
 (evil-leader/set-key
