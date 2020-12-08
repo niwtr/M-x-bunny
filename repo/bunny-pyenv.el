@@ -2,11 +2,15 @@
   (concat
    (f-parent
     (f-parent
-     (locate-file "python" exec-path)))
+     (or
+      (locate-file "python" exec-path)
+      (locate-file "python3" exec-path))))
    "/"))
 
 (defvar bunny-pyenv--default-pyenv
-  (bunny-pyenv--locate-default-python-env)
+  (condition-case nil
+      (bunny-pyenv--locate-default-python-env)
+    (error nil))
   "Default python environment for bunny-pyenv. 
    This value is set when this package is loaded.")
 
