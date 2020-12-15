@@ -290,34 +290,36 @@
 
 ;; bunny-eshell-extensions
 
+(defun renew-bunny-eshell-keybindings ()
+  (require 'bunny-eshell-extensions)
+  (evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+  (evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+  (evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
+  (evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+  (evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+  (evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
+  (evil-leader/set-key
+    "\\" 'bunny-neo-eshell
+    "|" 'bunny-eshell-command)
+
+  (evil-define-key 'normal eshell-mode-map (kbd "<RET>")
+    #'bunny-eshell-maybe-commit-last)
+  (evil-define-key 'normal eshell-mode-map (kbd "F")
+    #'bunny-eshell-goto-input-line-and-insert)
+
+
+  (evil-global-set-key 'normal (kbd "\\") 'bunny-ivy-eshell-finder)
+  (define-minor-mode-leader-keymap 'eshell-mode :overwrite t
+    ("c" . 'eshell-clear)
+    ("i" . 'eshell-interrupt-process)
+    ("," . (lambda ()
+	     (interactive)
+	     (eshell-interrupt-process)
+	     (bunny-eshell-goto-input-line-and-insert)))))
+
+(renew-bunny-eshell-keybindings)
 (add-hook ;; renewing a new eshell may override the previous keybinding settings. 
- 'eshell-mode-hook
- (lambda ()
-   (require 'bunny-eshell-extensions)
-   (evil-define-key 'normal eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
-   (evil-define-key 'insert eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
-   (evil-define-key 'visual eshell-mode-map (kbd "C-n") 'bunny-eshell-next-within-project)
-   (evil-define-key 'normal eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
-   (evil-define-key 'insert eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
-   (evil-define-key 'visual eshell-mode-map (kbd "C-p") 'bunny-eshell-prev-within-project)
-   (evil-leader/set-key
-     "\\" 'bunny-neo-eshell
-     "|" 'bunny-eshell-command)
-
-   (evil-define-key 'normal eshell-mode-map (kbd "<RET>")
-     #'bunny-eshell-maybe-commit-last)
-   (evil-define-key 'normal eshell-mode-map (kbd "F")
-     #'bunny-eshell-goto-input-line-and-insert)
-
-
-   (evil-global-set-key 'normal (kbd "\\") 'bunny-ivy-eshell-finder)
-   (define-minor-mode-leader-keymap 'eshell-mode :overwrite t
-     ("c" . 'eshell-clear)
-     ("i" . 'eshell-interrupt-process)
-     ("," . (lambda ()
-	      (interactive)
-	      (eshell-interrupt-process)
-	      (bunny-eshell-goto-input-line-and-insert))))))
+ 'eshell-mode-hook #'renew-bunny-eshell-keybindings)
 
 (require 'bunny-insert-surroundings)
 (evil-leader/set-key

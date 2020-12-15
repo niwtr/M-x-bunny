@@ -25,5 +25,12 @@
   (compile
    (concat "g++ " (buffer-name) " --std=c++14 && ./a.out" )))
 
+;; fix tab spaces to 4 in cpp files.
+(add-hook 'c++-mode-hook
+	      (lambda ()
+	        (setq-default indent-tabs-mode nil)
+	        (setq-default tab-width 4)
+	        (setq c-set-style "k&r")
+	        (setq c-basic-offset 4)))
 
 ;;; bunny-lang-python.el ends here.
