@@ -224,15 +224,17 @@
 (add-to-list 'ivy-ignore-buffers
 	     (lambda (buffer)
 	       (memq (with-current-buffer buffer major-mode)
-                     '(eshell-mode
-                       magit-process-mode
-                       magit-status-mode
-                       magit-diff-mode))))
+		     '(eshell-mode
+		       magit-process-mode
+		       magit-status-mode
+		       magit-diff-mode))))
 
 
 ;; undo tree
-(use-package undo-tree :ensure t
+(use-package undo-tree :ensure t :after aggressive-indent
   :init
+  (add-to-list 'aggressive-indent-protected-commands #'undo-tree-visualize-undo)
+  (add-to-list 'aggressive-indent-protected-commands #'undo-tree-visualize-redo)
   (with-eval-after-load 'undo-tree
     (defun undo-tree-overridden-undo-bindings-p () nil))
   (global-undo-tree-mode))
