@@ -1,5 +1,6 @@
 (setq use-lsp (eq ss-c++-system 'lsp))
 (setq use-ggtags (eq ss-c++-system 'ggtags))
+(setq use-dump-jump (eq ss-c++-system 'dumb-jump))
 
 (when use-lsp
   (use-package ccls :ensure t
@@ -10,6 +11,11 @@
 	      (if (eq 'default ss-ccls-executable)
 	          (locate-file "ccls" exec-path)
 	        ss-ccls-executable))))
+
+(when use-dumb-jump
+  (use-package dumb-jump :ensure t
+    :init
+    (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)))
 
 (when use-ggtags
   (use-package ggtags :ensure t

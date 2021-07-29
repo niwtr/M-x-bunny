@@ -13,8 +13,8 @@
  '(column-number-mode t)
  '(company-backends
    '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
-		  (company-dabbrev-code company-gtags company-etags company-keywords)
-		  company-oddmuse company-dabbrev))
+                  (company-dabbrev-code company-gtags company-etags company-keywords)
+                  company-oddmuse company-dabbrev))
  '(company-lsp-enable-recompletion t)
  '(company-lsp-enable-snippet nil)
  '(company-quickhelp-color-background "#4F4F4F")
@@ -47,7 +47,7 @@
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(undo-tree lsp-pyright ccls emacs-ccls hydra leetcode helm-ag realgud-ipdb dap-mode evil-smartparens company-insert-selected company-jedi ggtags auto-complete flycheck json-mode buffer-expose lispyville lentic forge parrot flymake-diagnostic-at-point annotate cyberpunk-theme ranger symbol-overlay keyfreq eyebrowse expand-region god-mode gruvbox-theme ob-ipython ace-jump-zap evil-terminal-cursor-changer evil-org htmlize color-theme-approximate ivy swiper beacon ace-jump-mode zone-rainbow evil-vimish-fold linum-relative org-download writeroom-mode typing-game evil-goggles tao-theme quasi-monochrome-theme minimal-theme monochrome-theme evil-mc iedit smartscan evil-collection workgroups realgud yaml-mode elfeed ycm dracula-theme markdown-mode+ symon latex-pretty-symbols macrostep academic-phrases company-statistics dashboard multi-term golden-ratio company-anaconda anaconda-mode airline-themes powerline-evil doom-themes neotree helm projectile evil ace-jump-buffer replace-pairs which-key try use-package))
+   '(dumb-jump undo-tree lsp-pyright ccls emacs-ccls hydra leetcode helm-ag realgud-ipdb dap-mode evil-smartparens company-insert-selected company-jedi ggtags auto-complete flycheck json-mode buffer-expose lispyville lentic forge parrot flymake-diagnostic-at-point annotate cyberpunk-theme ranger symbol-overlay keyfreq eyebrowse expand-region god-mode gruvbox-theme ob-ipython ace-jump-zap evil-terminal-cursor-changer evil-org htmlize color-theme-approximate ivy swiper beacon ace-jump-mode zone-rainbow evil-vimish-fold linum-relative org-download writeroom-mode typing-game evil-goggles tao-theme quasi-monochrome-theme minimal-theme monochrome-theme evil-mc iedit smartscan evil-collection workgroups realgud yaml-mode elfeed ycm dracula-theme markdown-mode+ symon latex-pretty-symbols macrostep academic-phrases company-statistics dashboard multi-term golden-ratio company-anaconda anaconda-mode airline-themes powerline-evil doom-themes neotree helm projectile evil ace-jump-buffer replace-pairs which-key try use-package))
  '(pdf-tools-handle-upgrades nil)
  '(pdf-view-midnight-colors '("#ffffff" . "#222222"))
  '(pixel-scroll-mode nil)

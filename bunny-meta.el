@@ -25,7 +25,7 @@
 
 ;; cpp
 (setq ss-use-feature-cpp t)
-(setq ss-c++-system 'ggtags)
+(setq ss-c++-system 'dumb-jump)
 (setq ss-ccls-executable "/usr/local/bin/ccls2")
 
 ;; scala
