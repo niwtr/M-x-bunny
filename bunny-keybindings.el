@@ -1,5 +1,6 @@
 (require 'evil)
 (require 'evil-leader)
+(require 'undo-tree)
 (require 'bunny-minor-mode-leader-keymap)
 
 ;; evil

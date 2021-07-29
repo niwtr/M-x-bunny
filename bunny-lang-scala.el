@@ -31,14 +31,3 @@
   (setq lsp-enable-on-type-formatting nil)
   (setq lsp-enable-snippet nil)
   (setq lsp-diagnostic-package :flycheck))
-
-(use-package company-lsp
-  :ensure t
-  :config
-  ;; (setq company-lsp-enable-snippet nil
-  ;; company-lsp-cache-candidates nil)
-  (setq company-lsp-enable-snippet nil)
-  (push 'company-lsp company-backends))
-
-
-

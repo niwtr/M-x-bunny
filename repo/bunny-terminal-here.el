@@ -1,6 +1,7 @@
 (require 'multi-term)
 (require 'shell-pop)
-	 
+(require 'tramp)
+
 (defconst repo-directory ss-repo-directory)
 (defvar bunny--iterm2-script-path (concat repo-directory "bunny-iterm2-here/bunny-iterm2-helper.py"))
 (defvar bunny--iterm2-shell-script-path (concat repo-directory "bunny-iterm2-here/bunny-iterm2-helper.sh"))

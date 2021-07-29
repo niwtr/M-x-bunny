@@ -7,15 +7,15 @@
     (setq lsp-file-watch-threshold 10000)
     (add-hook 'c++-mode-hook 'lsp)
     (setq ccls-executable
-	  (if (eq 'default ss-ccls-executable)
-	      (locate-file "ccls" exec-path)
-	    ss-ccls-executable))))
+	      (if (eq 'default ss-ccls-executable)
+	          (locate-file "ccls" exec-path)
+	        ss-ccls-executable))))
 
 (when use-ggtags
   (use-package ggtags :ensure t
     :config
     (add-hook 'c-mode-common-hook
-              (lambda ()
+	      (lambda ()
 		(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
 		  (ggtags-mode 1))))))
 
@@ -29,8 +29,8 @@
 (add-hook 'c++-mode-hook
 	      (lambda ()
 	        (setq-default indent-tabs-mode nil)
+            (setq-default c-default-style "linux")
 	        (setq-default tab-width 4)
-	        (setq c-set-style "k&r")
 	        (setq c-basic-offset 4)))
 
 ;;; bunny-lang-python.el ends here.

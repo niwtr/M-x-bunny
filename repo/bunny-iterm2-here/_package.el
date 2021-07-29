@@ -28,7 +28,7 @@
 ;;   `niwtr-iterm2-here/post-init-PACKAGE' to customize the package as it is loaded.
 
 ;;; Code:
-
+(require 'tramp)
 (defconst niwtr-iterm2-here-packages
   '())
 

@@ -24,7 +24,7 @@
 (setq ss-inferior-lisp-program "/home/niutr/bin/ecl")
 
 ;; cpp
-(setq ss-use-feature-cpp nil)
+(setq ss-use-feature-cpp t)
 (setq ss-c++-system 'ggtags)
 (setq ss-ccls-executable "/usr/local/bin/ccls2")
 

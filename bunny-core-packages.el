@@ -102,6 +102,7 @@
   :ensure t
   :config
   (evil-collection-init 'neotree)
+  (evil-collection-init 'magit)
   (evil-collection-init 'xref)
   (evil-collection-define-key 'normal 'xref--xref-buffer-mode-map
     "n" 'xref-next-line
@@ -228,6 +229,13 @@
                        magit-status-mode
                        magit-diff-mode))))
 
+
+;; undo tree
+(use-package undo-tree :ensure t
+  :init
+  (with-eval-after-load 'undo-tree
+    (defun undo-tree-overridden-undo-bindings-p () nil))
+  (global-undo-tree-mode))
 
 ;;; dired
 (use-package dired-subtree :ensure t)
@@ -363,7 +371,7 @@
 
 (use-package magit :ensure t)
 
-(use-package evil-magit :ensure t)
+;; (use-package evil-magit :ensure t)
 (use-package yaml-mode :ensure t :defer t)
 (use-package elfeed :ensure t :defer t
   :config
