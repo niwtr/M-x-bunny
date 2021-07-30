@@ -12,7 +12,7 @@
  '(bunny-kill-ring-webserver-type 'GET)
  '(column-number-mode t)
  '(company-backends
-   '(company-bbdb company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+   '(company-bbdb company-eclim company-semantic company-xcode company-cmake company-capf company-files
                   (company-dabbrev-code company-gtags company-etags company-keywords)
                   company-oddmuse company-dabbrev))
  '(company-lsp-enable-recompletion t)

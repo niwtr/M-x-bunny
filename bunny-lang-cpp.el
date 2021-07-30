@@ -1,6 +1,6 @@
 (setq use-lsp (eq ss-c++-system 'lsp))
 (setq use-ggtags (eq ss-c++-system 'ggtags))
-(setq use-dump-jump (eq ss-c++-system 'dumb-jump))
+(setq use-dumb-jump (eq ss-c++-system 'dumb-jump))
 
 (when use-lsp
   (use-package ccls :ensure t
