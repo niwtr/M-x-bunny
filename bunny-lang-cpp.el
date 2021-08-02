@@ -21,9 +21,9 @@
   (use-package ggtags :ensure t
     :config
     (add-hook 'c-mode-common-hook
-	      (lambda ()
-		(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-		  (ggtags-mode 1))))))
+	          (lambda ()
+                (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+		          (ggtags-mode 1))))))
 
 (defun bunny-compile-and-run-c++-file ()
   (interactive)
@@ -37,6 +37,7 @@
 	        (setq-default indent-tabs-mode nil)
             (setq-default c-default-style "linux")
 	        (setq-default tab-width 4)
-	        (setq c-basic-offset 4)))
+	        (setq c-basic-offset 4)
+            (c-guess-buffer)))
 
 ;;; bunny-lang-python.el ends here.
