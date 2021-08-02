@@ -1,5 +1,4 @@
 (setq use-lsp (eq ss-c++-system 'lsp))
-(setq use-ggtags (eq ss-c++-system 'ggtags))
 (setq use-dumb-jump (eq ss-c++-system 'dumb-jump))
 
 (when use-lsp
@@ -16,14 +15,6 @@
   (use-package dumb-jump :ensure t
     :init
     (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)))
-
-(when use-ggtags
-  (use-package ggtags :ensure t
-    :config
-    (add-hook 'c-mode-common-hook
-	          (lambda ()
-                (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-		          (ggtags-mode 1))))))
 
 (defun bunny-compile-and-run-c++-file ()
   (interactive)
