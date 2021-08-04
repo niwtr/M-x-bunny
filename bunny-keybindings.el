@@ -12,6 +12,7 @@
 (define-key evil-normal-state-map (kbd "C-b") 'scroll-up-10)
 (define-key evil-normal-state-map (kbd "C-o") 'evil-jump-forward)
 (define-key evil-normal-state-map (kbd "C-p") 'evil-jump-backward)
+(define-key evil-normal-state-map (kbd "u") 'undo-tree-undo)
 
 (evil-global-set-key 'normal (kbd "Q") 'evil-quit)
 (evil-global-set-key 'motion (kbd "Q") 'evil-quit)
