@@ -1,11 +1,11 @@
-(setq use-lsp-ui nil)
+;; (setq use-lsp-ui nil)
 (setq use-ob-ipython nil)
-
 (setq use-anaconda (eq ss-python-system 'anaconda))
 (setq use-jedi (eq ss-python-system 'jedi))
 (setq use-company-jedi (eq ss-python-system 'company-jedi))
-(setq use-lsp (eq ss-python-system 'lsp))
-(setq use-microsoft-pyls use-lsp)
+(setq use-lsp (or (eq ss-python-system 'lsp-ms-pyls) (eq ss-python-system 'lsp-pyright)))
+(setq use-microsoft-pyls (eq ss-python-system 'lsp-ms-pyls))
+(setq use-lsp-pyright (eq ss-python-system 'lsp-pyright))
 
 ;;; the very first python minor mode binding.
 (require 'bunny-pyenv)
@@ -50,6 +50,13 @@
     ;; the on-type-formatting, which is annoying.
     (setq lsp-enable-on-type-formatting nil)
     (setq lsp-diagnostic-package :flycheck))
+  (use-package flycheck :ensure t)
+  (when use-lsp-pyright
+    (use-package lsp-pyright
+      :ensure t
+      :hook (python-mode . (lambda ()
+			                       (require 'lsp-pyright)
+			                       (lsp)))))
   (when use-microsoft-pyls
     (use-package lsp-python-ms :ensure t
       :after lsp-mode
@@ -58,13 +65,11 @@
       (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
       (add-hook 'python-mode-hook 'lsp)
       (setq lsp-python-ms-executable 
-	    (if (eq ss-ms-pyls-executable 'default)
-		(locate-file "Microsoft.Python.LanguageServer" exec-path)
-	      ss-ms-pyls-executable))))
-
-  (when use-lsp-ui
-    (use-package lsp-ui :ensure t
-      :after lsp-python-ms)))
+	          (if (eq ss-ms-pyls-executable 'default)
+		            (locate-file "Microsoft.Python.LanguageServer" exec-path)
+	            ss-ms-pyls-executable))))
+  (use-package lsp-ui :ensure t
+    :after lsp-mode))
 
 (when use-company-jedi
   (use-package company-jedi :ensure t)
