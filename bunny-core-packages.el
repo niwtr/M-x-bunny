@@ -86,13 +86,11 @@
 
 (use-package hydra :ensure t)
 
-
 (use-package evil-leader
   :ensure t
   :init
   (setq evil-leader/leader "<SPC>")
   :config (global-evil-leader-mode))
-
 
 ;; NOTE this package must be loaded here.
 (use-package bunny-minor-mode-leader-keymap)

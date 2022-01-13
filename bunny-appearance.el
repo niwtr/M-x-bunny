@@ -48,6 +48,7 @@
     leuven
     modus-operandi
     wombat
+    vscode-dark-plus
     ))
 
 (dolist (theme available-ui-themes)
@@ -158,3 +159,10 @@
     :ensure t
     :defer t
     :hook (after-init . doom-modeline-init)))
+
+
+(when use-vscode-dark-plus
+  (use-package vscode-dark-plus-theme
+    :ensure t
+    :config
+    (load-theme 'vscode-dark-plus t)))
