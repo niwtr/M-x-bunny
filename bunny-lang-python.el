@@ -3,9 +3,11 @@
 (setq use-anaconda (eq ss-python-system 'anaconda))
 (setq use-jedi (eq ss-python-system 'jedi))
 (setq use-company-jedi (eq ss-python-system 'company-jedi))
-(setq use-lsp (or (eq ss-python-system 'lsp-ms-pyls) (eq ss-python-system 'lsp-pyright)))
+(setq use-lsp (or (eq ss-python-system 'lsp-pylsp) (eq ss-python-system 'lsp-ms-pyls) (eq ss-python-system 'lsp-pyright)))
 (setq use-microsoft-pyls (eq ss-python-system 'lsp-ms-pyls))
 (setq use-lsp-pyright (eq ss-python-system 'lsp-pyright))
+(setq use-lsp-pylsp (eq ss-python-system 'lsp-pylsp))
+
 
 ;;; the very first python minor mode binding.
 (require 'bunny-pyenv)
@@ -33,7 +35,6 @@
     :ensure t
     :commands python-mode
     :config
-    (setq python-shell-remote-exec-path `(,ss-python-remote-exec-path))
     (add-hook 'python-mode-hook 'anaconda-mode)
     (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
   (use-package company-anaconda
@@ -51,12 +52,15 @@
     (setq lsp-enable-on-type-formatting nil)
     (setq lsp-diagnostic-package :flycheck))
   (use-package flycheck :ensure t)
+
   (when use-lsp-pyright
     (use-package lsp-pyright
       :ensure t
-      :hook (python-mode . (lambda ()
-			                       (require 'lsp-pyright)
-			                       (lsp)))))
+      :hook (python-mode . (lambda () (require 'lsp-pyright) (lsp)))))
+
+  (when use-lsp-pylsp
+    (add-hook 'python-mode-hook 'lsp))
+
   (when use-microsoft-pyls
     (use-package lsp-python-ms :ensure t
       :after lsp-mode
@@ -65,9 +69,9 @@
       (add-hook 'python-mode-hook '(lambda () (flymake-mode -1)))
       (add-hook 'python-mode-hook 'lsp)
       (setq lsp-python-ms-executable 
-	          (if (eq ss-ms-pyls-executable 'default)
-		            (locate-file "Microsoft.Python.LanguageServer" exec-path)
-	            ss-ms-pyls-executable))))
+	    (if (eq ss-ms-pyls-executable 'default)
+		(locate-file "Microsoft.Python.LanguageServer" exec-path)
+	      ss-ms-pyls-executable))))
   (use-package lsp-ui :ensure t
     :after lsp-mode))
 

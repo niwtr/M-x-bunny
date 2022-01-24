@@ -27,6 +27,7 @@
 (delete-selection-mode t)
 (setq custom-file ss-custom-file)
 
+
 (when (and window-system (not (eq window-system 'mac)))
   (setq mouse-wheel-scroll-amount '(0.01))
   (setq mouse-wheel-progressive-speed nil)

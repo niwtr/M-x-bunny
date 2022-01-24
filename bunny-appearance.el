@@ -20,12 +20,9 @@
   ;;     (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)))
   (tool-bar-mode -1)
   (menu-bar-mode -1)
+  (setq-default cursor-type 'bar)
   (scroll-bar-mode -1)
   (blink-cursor-mode -1))
-
-;;; Terminal-specific features.
-(unless window-system
-  (menu-bar-mode -1))
 
 (defadvice load-theme (before theme-dont-propagate activate)
   (mapc #'disable-theme custom-enabled-themes))

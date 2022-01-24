@@ -20,10 +20,18 @@
   (package-install 'use-package))
 (add-to-list 'load-path ss-repo-directory)
 
-(use-package aggressive-indent :ensure t
+(use-package multiple-cursors :ensure t)
+
+(use-package paredit :ensure t
   :config
-  (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
-  (add-hook 'lisp-interaction-mode-hook 'aggressive-indent-mode))
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode))
+
+ (use-package aggressive-indent :ensure t
+   :config
+   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
+   (add-hook 'lisp-interaction-mode-hook 'aggressive-indent-mode))
 
 (use-package anaphora :ensure t)
 (use-package try :ensure t)
@@ -31,17 +39,15 @@
   :ensure t
   :config (exec-path-from-shell-initialize))
 (use-package macrostep :ensure t)
-(use-package move-text :ensure t
-  :config (move-text-default-bindings))
-
-(use-package symbol-overlay :ensure t :after evil-leader)
 
 (use-package highlight-parentheses
   :ensure t
   :config (global-highlight-parentheses-mode))
 
-(use-package rainbow-delimiters :ensure t)
-(use-package zone-rainbow :ensure t :after evil-leader)
+(use-package rainbow-delimiters :ensure t :config
+  (rainbow-delimiters-mode-enable))
+
+(use-package zone-rainbow :ensure t)
 
 (use-package posframe :ensure t)
 
@@ -50,79 +56,8 @@
   :config
   (global-hl-todo-mode))
 
-(use-package evil
-  :ensure t
-  :init
-  (progn
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    (setq evil-want-fine-undo t)
-    (setq evil-auto-indent t
-	  evil-search-wrap t)
-    ;; (setq evil-disable-insert-state-bindings t)
-    )
-  :config
-  (defun ex-kill-buffer-and-close()
-    (interactive)
-    (kill-this-buffer)
-    (evil-quit))
-  (defun ex-save-buffer-and-kill()
-    (interactive)
-    (save-buffer)
-    (kill-this-buffer))
-  ;; for use personally
-  (defun ex-save-kill-buffer-and-close()
-    (interactive)
-    (save-buffer)
-    (kill-this-buffer)
-    (evil-quit))
-  (defun scroll-down-10 ()
-    (interactive)
-    (scroll-up 10))
-  (defun scroll-up-10 ()
-    (interactive)
-    (scroll-down 10))
-  (evil-mode 1))
 
 (use-package hydra :ensure t)
-
-(use-package evil-leader
-  :ensure t
-  :init
-  (setq evil-leader/leader "<SPC>")
-  :config (global-evil-leader-mode))
-
-;; NOTE this package must be loaded here.
-(use-package bunny-minor-mode-leader-keymap)
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init 'neotree)
-  (evil-collection-init 'magit)
-  (evil-collection-init 'xref)
-  (evil-collection-define-key 'normal 'xref--xref-buffer-mode-map
-    "n" 'xref-next-line
-    "p" 'xref-prev-line)
-  (evil-collection-init 'dired))
-
-(use-package evil-matchit
-  :ensure t
-  :config
-  (global-evil-matchit-mode 1))
-
-(use-package evil-nerd-commenter :ensure t)
-
-(when use-evil-multiedit
-  (use-package evil-multiedit :ensure t
-    :config
-    (defun evil-multi-edit-put-marker-and-move ()
-      (interactive)
-      (evil-multiedit-toggle-marker-here)
-      (next-line)
-      (backward-char))))
-
 
 (use-package which-key :ensure t :config (which-key-mode))
 
@@ -342,8 +277,6 @@
 (use-package company
   :ensure t
   :config
-  ;; (define-key company-active-map (kbd "TAB") 'company-complete-selection)
-  ;; (define-key company-active-map (kbd "TAB") 'company-complete-common-or-cycle)
   (setq company-idle-delay 0.01)
   (setq company-minimum-prefix-length 1)
   (global-company-mode t)
@@ -361,13 +294,7 @@
 (setq org-src-tab-acts-natively t)
 (setq org-confirm-babel-evaluate nil)
 
-(use-package git-timemachine :ensure t
-  :config
-  (eval-after-load 'git-timemachine
-    '(progn
-       (evil-make-overriding-map git-timemachine-mode-map 'normal)
-       ;; force update evil keymaps after git-timemachine-mode loaded
-       (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps))))
+(use-package git-timemachine :ensure t)
 
 (use-package magit :ensure t)
 

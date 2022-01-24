@@ -3,19 +3,19 @@
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
-(setq ss-ui-theme 'zenburn)
-;; (setq ss-ui-theme 'modus-operandi)
+(setq ss-ui-theme 'vscode-dark-plus)
+;; (setq ss-ui-theme 'defrault-emacs-black-theme)
 
 (setq use-doom-modeline t)
 (setq use-eshell-git-prompt 'powerline)
 
 ;; (setq ss-font-family "Source Code Pro")
 (setq ss-font-family "IBM Plex Mono")
-(setq ss-font-height 110)
+(setq ss-font-height 160)
 
 ;; python
 (setq ss-python-env 'default)
-(setq ss-python-system nil)
+(setq ss-python-system 'anaconda)
 (setq ss-ms-pyls-executable 'default)
 
 ;; lisp
