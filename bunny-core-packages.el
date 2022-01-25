@@ -213,11 +213,13 @@
 (use-package swiper
   :ensure t
   :config
-  (defun bunny-swiper-at-point (st ed)
-    (interactive "r")
-    (if (use-region-p)
-	(counsel-grep-or-swiper (buffer-substring st ed))
-      (counsel-grep-or-swiper (thing-at-point 'symbol)))))
+  (defun bunny-swiper-at-point (&optional st ed)
+    (interactive
+     (when (use-region-p)
+       (list (region-beginning) (region-end))))
+    (if (null st)
+	(counsel-grep-or-swiper)
+      (counsel-grep-or-swiper (buffer-substring st ed)))))
 
 (add-to-list 'ivy-ignore-buffers
 	     (lambda (buffer)
