@@ -6,7 +6,7 @@
 (setq ss-ui-theme 'vscode-dark-plus)
 ;; (setq ss-ui-theme 'defrault-emacs-black-theme)
 
-(setq use-doom-modeline t)
+(setq use-doom-modeline nil)
 (setq use-eshell-git-prompt 'powerline)
 
 ;; (setq ss-font-family "Source Code Pro")

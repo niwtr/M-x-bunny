@@ -10,7 +10,7 @@
 
 ;; swiper and counsel
 (require 'swiper)
-(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-s") 'bunny-swiper-at-point)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 (define-key swiper-map (kbd "?") 'swiper-avy)
@@ -67,6 +67,9 @@
 ;; emacs lisp mode.
 (define-key emacs-lisp-mode-map (kbd "C-c C-c") 'eval-defun)
 (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'eval-buffer)
+;; lisp interaction mode
+(define-key lisp-interaction-mode-map (kbd "C-c C-c") 'eval-defun)
+(define-key lisp-interaction-mode-map (kbd "C-c C-k") 'eval-buffer)
 
 ;; multiple-cursors
 (require 'multiple-cursors)
