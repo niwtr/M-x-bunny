@@ -3,15 +3,25 @@
 
 (setq inferior-lisp-program ss-inferior-lisp-program)
 (when use-slime
+  (add-hook 'lisp-mode-hook (lambda ()
+			      (company-mode -1)))
+  (add-hook 'lisp-mode-hook (lambda ()
+			      (auto-complete-mode +1)))
   (use-package slime
     :ensure t
-    :commands (slime slime-connect lisp-mode-hook)
-    :init
     :config
-    (use-package slime-company :ensure t)
-    ;;(add-hook 'lisp-mode (lambda () (company-mode 1))))
-    ;; (add-hook 'slime-repl-mode-hook (lambda() (company-mode 0)))
-    (slime-setup '(slime-fancy slime-company))))
+    (setq browse-url-browser-function
+	  '(("hyperspec" . eww-browse-url)
+	    ("." . browse-url-default-browser)))
+    (slime-setup '(slime-fancy slime-asdf slime-quicklisp
+			       slime-indentation)))
+  (use-package ac-slime
+    :ensure t
+    :config
+    (add-hook 'slime-mode-hook 'set-up-slime-ac)
+    (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+    (eval-after-load "auto-complete"
+      '(add-to-list 'ac-modes 'slime-repl-mode))))
 
 (when use-sly
   (use-package sly
