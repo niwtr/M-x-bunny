@@ -11,7 +11,7 @@
 
 ;; (setq ss-font-family "Source Code Pro")
 (setq ss-font-family "IBM Plex Mono")
-(setq ss-font-height 160)
+(setq ss-font-height 110)
 
 ;; python
 (setq ss-python-env 'default)
@@ -19,9 +19,9 @@
 (setq ss-ms-pyls-executable 'default)
 
 ;; lisp
-(setq ss-use-feature-lisp nil)
-(setq ss-lisp-system nil) ;; slime or sly or nil
-(setq ss-inferior-lisp-program "/home/niutr/bin/ecl")
+(setq ss-use-feature-lisp t)
+(setq ss-lisp-system 'slime) ;; slime or sly or nil
+(setq ss-inferior-lisp-program "/usr/bin/sbcl")
 
 ;; cpp
 (setq ss-use-feature-cpp t)

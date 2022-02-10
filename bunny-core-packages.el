@@ -154,9 +154,11 @@
     (interactive
      (when (use-region-p)
        (list (region-beginning) (region-end))))
-    (if (null st)
-	(counsel-grep-or-swiper)
-      (counsel-grep-or-swiper (buffer-substring st ed)))))
+    (if (and st ed)
+	(progn
+	  (deactivate-mark)
+	  (counsel-grep-or-swiper (buffer-substring-no-properties st ed)))
+      (counsel-grep-or-swiper))))
 
 
 (add-to-list 'ivy-ignore-buffers
@@ -371,7 +373,7 @@
 
 (use-package bunny-window-manager)
 
-(use-package bunny-tweaks)
+;; (use-package bunny-tweaks) ;; no longer used in holy mode.
 
 
 ;;; bunny-core-packages.el ends here.
