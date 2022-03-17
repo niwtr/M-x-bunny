@@ -76,9 +76,6 @@
 (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
 (define-key bunny-c-j-keymap (kbd "m c") 'mc/edit-lines)
 
-;; iedit
-(require 'iedit)
-
 ;; eyebrowse
 (global-set-key (kbd "M-1") 'eyebrowse-switch-to-window-config-1)
 (global-set-key (kbd "M-2") 'eyebrowse-switch-to-window-config-2)
