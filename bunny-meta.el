@@ -37,8 +37,8 @@
 (setq ss-use-feature-latex nil)
 
 ;; multi-editing
-(setq use-iedit nil)
-(setq use-evil-multiedit t)
+(setq use-iedit t)
+(setq use-evil-multiedit nil)
 
 
 ;; sshfs support [optional]
