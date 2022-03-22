@@ -21,7 +21,7 @@
 ;; lisp
 (setq ss-use-feature-lisp t)
 (setq ss-lisp-system 'slime) ;; slime or sly or nil
-(setq ss-inferior-lisp-program "/usr/bin/sbcl")
+(setq ss-inferior-lisp-program "/usr/local/bin/lw-console")
 
 ;; cpp
 (setq ss-use-feature-cpp t)

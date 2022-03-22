@@ -7,6 +7,10 @@
 			      (company-mode -1)))
   (add-hook 'lisp-mode-hook (lambda ()
 			      (auto-complete-mode +1)))
+  ;; make slime run in seperate frame instead of window.
+  (add-to-list 'display-buffer-alist
+	       '("\\*inferior-lisp\\*" display-buffer-pop-up-frame
+		 (nil)))
   (use-package slime
     :ensure t
     :config

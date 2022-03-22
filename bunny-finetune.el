@@ -5,6 +5,9 @@
 ;; (setq tramp-verbose 6)
 (setq tramp-inline-compress-start-size 10000000)
 
+;; highlight current line.
+(set-face-background 'hl-line "#3e4446")
+
 (setq redisplay-dont-pause t)
   ;;; never kill the scratch buffer.
 (defadvice kill-buffer (around kill-buffer-around-advice activate)

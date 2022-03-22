@@ -3,6 +3,20 @@
 ;; ace jump and ace window.
 (require 'ace-jump-mode)
 (global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "C-o") 'ace-jump-mode)
+(defun scroll-up-10 ()
+  (interactive)
+  (scroll-up 10))
+
+(defun scroll-down-10 ()
+  (interactive)
+  (scroll-down 10))
+(global-set-key (kbd "M-n") 'scroll-up-10)
+(global-set-key (kbd "M-p") 'scroll-down-10)
+
+(when use-slime
+  (define-key slime-mode-indirect-map (kbd "M-n") 'scroll-up-10)
+  (define-key slime-mode-indirect-map (kbd "M-p") 'scroll-down-10))
 
 ;; undo tree, overwrites undo-redo.
 (require 'undo-tree)
@@ -16,6 +30,7 @@
 (define-key swiper-map (kbd "?") 'swiper-avy)
 (define-key swiper-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 (global-set-key (kbd "C-x F") 'counsel-recentf)
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 ;; counsel-yank-pop/
 
 
