@@ -35,9 +35,13 @@
 
 (use-package anaphora :ensure t)
 (use-package try :ensure t)
-(use-package exec-path-from-shell
-  :ensure t
-  :config (exec-path-from-shell-initialize))
+
+(unless (eq system-type 'windows-nt)
+  (use-package exec-path-from-shell
+    :ensure t
+    :config (exec-path-from-shell-initialize)))
+
+
 (use-package macrostep :ensure t)
 
 (use-package highlight-parentheses
@@ -114,25 +118,27 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0 :color "blue")))))))
 
 (use-package ivy :ensure t :config
-  (ivy-mode +1)
-  (setq ivy-do-completion-in-region nil)
-  (setq ivy-re-builders-alist
-	'((counsel-M-x . ivy--regex-ignore-order)
-	  (swiper . ivy--regex-plus)
-	  (t  . ivy--regex-ignore-order))))
-
-(use-package ivy-rich :ensure t
-  :config
-  (ivy-rich-mode +1))
+	     (ivy-mode +1)
+	     (setq ivy-do-completion-in-region nil)
+	     (setq ivy-re-builders-alist
+		   '((counsel-M-x . ivy--regex-ignore-order)
+		     (swiper . ivy--regex-plus)
+		     (t  . ivy--regex-ignore-order))))
 
 (use-package counsel :ensure t
-  :config
-  (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
-  (setq counsel-find-file-ignore-regexp "\\.ccls-cache")
-  (when (locate-file "rg" exec-path)
+	     :config
+	     (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
+	     (setq counsel-find-file-ignore-regexp "\\.ccls-cache")
+	     (when (locate-file "rg" exec-path)
     ;;; then use ripgrep.
-    (setq counsel-grep-base-command
-	  "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
+	       (setq counsel-grep-base-command
+		     "rg -i -M 120 --no-heading --line-number --color never '%s' %s")))
+
+(use-package ivy-rich :ensure t
+	     :config
+	     (ivy-rich-mode +1))
+
+
 
 (use-package smex :ensure t)
 (use-package counsel-projectile	:ensure t)
@@ -327,6 +333,9 @@
 (use-package bunny-h5ls
   :config
   (advice-add 'find-file :around #'bunny-h5ls-h5file))
+
+(when (eq system-type 'windows-nt)
+  (use-package bunny-run-as-time))
 
 (use-package bunny-register-jumper)
 (use-package bunny-sshfs :if use-bunny-sshfs)
