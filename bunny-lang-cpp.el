@@ -32,9 +32,9 @@
 ;; fix tab spaces to 2 in cpp files.
 (add-hook 'c++-mode-hook
 	        (lambda ()
-            (setq-default indent-tabs-mode nil)
             (setq-default c-default-style "linux")
             (setq-default tab-width 2)
-            (setq c-basic-offset 2)))
+            (setq c-basic-offset 2)
+            (setq indent-tabs-mode nil)))
 
 ;;; bunny-lang-python.el ends here.

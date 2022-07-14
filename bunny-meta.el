@@ -11,7 +11,7 @@
 
 ;; (setq ss-font-family "Source Code Pro")
 (setq ss-font-family "IBM Plex Mono")
-(setq ss-font-height 110)
+(setq ss-font-height 130)
 
 ;; python
 (setq ss-python-env 'default)

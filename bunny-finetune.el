@@ -28,8 +28,9 @@
 (setq undo-tree-auto-save-history t)
 
 (delete-selection-mode t)
+(setq-default indent-tabs-mode nil)
+(setq-default c-default-style "linux")
 (setq custom-file ss-custom-file)
-
 
 (when (and window-system (not (eq window-system 'mac)))
   (setq mouse-wheel-scroll-amount '(0.01))
@@ -37,6 +38,8 @@
   (setq scroll-preserve-screen-position t)
   (setq ring-bell-function 'ignore))
 
+(prefer-coding-system 'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
 (unless window-system
   (require 'mouse)
   (xterm-mouse-mode t)
