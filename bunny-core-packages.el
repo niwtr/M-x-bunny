@@ -5,10 +5,10 @@
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize) ;; You might already have this line
 
-
 (unless (package-installed-p 'org)
   (package-refresh-contents)
   (package-install 'org))
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))

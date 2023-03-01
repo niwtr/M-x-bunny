@@ -1,5 +1,3 @@
-;; emacs-china, melpa, or all
-(setq ss-package-archives-source 'emacs-china)
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
