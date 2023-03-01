@@ -18,6 +18,7 @@
   (define-key slime-mode-indirect-map (kbd "M-n") 'scroll-up-10)
   (define-key slime-mode-indirect-map (kbd "M-p") 'scroll-down-10))
 
+
 ;; undo tree, overwrites undo-redo.
 (require 'undo-tree)
 (global-set-key (kbd "C-/") 'undo-tree-undo)
@@ -31,7 +32,9 @@
 (define-key swiper-map (kbd "<escape>") 'minibuffer-keyboard-quit)
 (global-set-key (kbd "C-x F") 'counsel-recentf)
 (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-;; counsel-yank-pop/
+;; ivy-occur
+(define-key ivy-occur-grep-mode-map (kbd "M-n") 'scroll-up-10)
+(define-key ivy-occur-grep-mode-map (kbd "M-p") 'scroll-down-10)
 
 
 ;; ido
@@ -67,6 +70,15 @@
 (define-key bunny-c-j-keymap (kbd "p C-a") 'projectile-add-known-project)
 
 (define-key bunny-c-j-keymap (kbd "C-j") 'ace-jump-word-mode)
+
+(define-key bunny-c-j-keymap (kbd "r m") 'bookmark-set)
+(define-key bunny-c-j-keymap (kbd "r b") 'bookmark-jump)
+(define-key bunny-c-j-keymap (kbd "r r") 'bookmark-jump)
+(define-key bunny-c-j-keymap (kbd "r B") 'bookmark-jump-other-window)
+(define-key bunny-c-j-keymap (kbd "r f") 'bookmark-jump-other-frame)
+
+
+
 
 ;; magit and git-timemachine
 (require 'magit)

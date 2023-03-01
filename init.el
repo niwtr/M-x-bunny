@@ -5,7 +5,6 @@
    (create-image
     (concat dotemacs-dotd-path "/doc/bunny.png") 'png nil)))
 
-
 (setq dotemacs-dotd-path (file-name-directory load-file-name))
 (load (expand-file-name "bunny-meta.el" dotemacs-dotd-path))
 (load (expand-file-name "bunny-core-packages.el" dotemacs-dotd-path))
@@ -22,3 +21,4 @@
 (load (expand-file-name "bunny-keybindings.el" dotemacs-dotd-path))
 (load (expand-file-name "bunny-finetune.el" dotemacs-dotd-path))
 (load custom-file)
+

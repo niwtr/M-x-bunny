@@ -3,7 +3,8 @@
 (setq ss-shell-path "/bin/zsh")
 
 ;; appearance
-(setq ss-ui-theme 'vscode-dark-plus)
+;;(setq ss-ui-theme 'vscode-dark-plus)
+(setq ss-ui-theme 'zenburn)
 ;; (setq ss-ui-theme 'defrault-emacs-black-theme)
 
 (setq use-doom-modeline nil)
@@ -11,6 +12,7 @@
 
 ;; (setq ss-font-family "Source Code Pro")
 (setq ss-font-family "IBM Plex Mono")
+;;(setq ss-font-family "Fixedsys Excelsior")
 (setq ss-font-height 130)
 
 ;; python

@@ -1,17 +1,11 @@
 (require 'package)
-(package-initialize)
-(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-			 ("melpa" . "http://elpa.emacs-china.org/melpa/")
-			 ("org"   . "http://elpa.emacs-china.org/org/")))
-(cond ((eq ss-package-archives-source 'emacs-china) nil)
-      ((eq ss-package-archives-source 'melpa)
-       (setq package-archives '(("melpa" . "https://melpa.org/packages/"))))
-      ((eq ss-package-archives-source 'all)
-       (add-to-list package-archives '("melpa" . "https://melpa.org/packages/")))
-      (t
-       (error "Unsupported package archive source.")))
 
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+                         ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(package-initialize) ;; You might already have this line
+
+
 (unless (package-installed-p 'org)
   (package-refresh-contents)
   (package-install 'org))
@@ -72,25 +66,17 @@
 (use-package projectile :ensure t
   :config
   (setq projectile-globally-ignored-directories
-	'(".git"
-	  ".ccls-cache"
-	  ".svn"
-	  ".idea"
-	  ".stack-work"
-	  ".cquery_cached_index"))
+	      '(".git"
+	        ".ccls-cache"
+	        ".svn"
+	        ".idea"
+	        ".stack-work"
+	        ".cquery_cached_index"))
   (projectile-global-mode)
   (projectile-load-known-projects)
   (advice-add 'projectile-add-known-project :after
-	      (lambda (arg)
-		(projectile-save-known-projects))))
-
-(use-package neotree
-  :ensure t
-  :config
-  (setq neo-window-fixed-size nil)
-  (setq neo-theme 'icons))
-
-(use-package ranger :ensure t)
+	            (lambda (arg)
+		            (projectile-save-known-projects))))
 
 (use-package ace-jump-mode :ensure t
   :config
@@ -232,13 +218,14 @@
   :config
   (defconst left-pairs-char-list  '("(" "[" "{"))
   (defconst right-pairs-char-list '(")" "]" "}"))
+  (setq er/try-expand-list (remove 'er/mark-word er/try-expand-list))
   (defun er/bunny-smart-pair-auto-moving ()
     (let ((char-at-point (string (char-after))))
       (cond ((member char-at-point left-pairs-char-list)
-	     (forward-char))
-	    ((member char-at-point right-pairs-char-list)
-	     (backward-char))
-	    (t nil))))
+	           (forward-char))
+	          ((member char-at-point right-pairs-char-list)
+	           (backward-char))
+	          (t nil))))
   (defun er/bunny-mark-inside-quote ()
     (interactive)
     (funcall 'er/bunny-smart-pair-auto-moving)
@@ -325,6 +312,17 @@
 	     (keyfreq-autosave-mode 1))
 
 (use-package web-server :ensure t)
+
+
+;; (use-package tabbar :ensure t)
+;; (use-package tabbar-ruler :ensure t
+;;   :config
+;;   (tabbar-mode t)
+;;   (setq tabbar-ruler-use-mode-icons nil)
+;;   (setq tabbar-ruler-fancy-close-image t)
+;;   (tabbar-ruler-group-by-projectile-project)
+;;   (require 'tabbar-ruler))
+
 
 (use-package bunny-prettify-json-file
   :config

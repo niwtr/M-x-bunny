@@ -21,8 +21,9 @@
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (setq-default cursor-type 'bar)
+  (setq blink-cursor-interval .2)
   (scroll-bar-mode -1)
-  (blink-cursor-mode -1))
+  (blink-cursor-mode 1))
 
 (defadvice load-theme (before theme-dont-propagate activate)
   (mapc #'disable-theme custom-enabled-themes))
