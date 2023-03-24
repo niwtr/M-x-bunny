@@ -23,7 +23,8 @@
   (setq-default cursor-type 'bar)
   (setq blink-cursor-interval .2)
   (scroll-bar-mode -1)
-  (blink-cursor-mode 1))
+  (blink-cursor-mode 1)
+  (global-display-line-numbers-mode))
 
 (defadvice load-theme (before theme-dont-propagate activate)
   (mapc #'disable-theme custom-enabled-themes))
